@@ -1,12 +1,14 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; 
-import banner1 from '/banner1.png'
-import banner2 from '/banner2.png'
-import banner3 from '/banner3.png'
+import banner1 from '../../../public/Ass_1jpg.jpg'
+import banner2 from '../../../public/ass_2.jpg'
+import banner3 from '../../../public/ass_3.jpg'
+import banner4 from '../../../public/ass_4.jpg'
+import banner5 from '../../../public/ass_5.jpg'
 
 
-const Banar = () => {
+  const Banar = () => {
     return (
   <Carousel
   autoPlay={true}
@@ -16,17 +18,25 @@ const Banar = () => {
   showStatus={false}
 >
                
-            <div>
-                    <img src={banner1} />
+            <div className=''>
+                    <img className='h-90 w-full' src={banner1} />
                     <p className="legend">Legend 1</p>
                 </div>
                 <div>
-                    <img src={banner2} />
+                    <img className='h-90 w-full' src={banner2} />
                     <p className="legend">Legend 2</p>
                 </div>
                 <div>
-                    <img src={banner3} />
+                    <img className='h-90 w-full' src={banner3} />
                     <p className="legend">Legend 3</p>
+                </div>
+                <div>
+                    <img className='h-90 w-full' src={banner4} />
+                    <p className="legend">Legend 4</p>
+                </div>
+                <div>
+                    <img className='h-90 w-full' src={banner5} />
+                    <p className="legend">Legend 5</p>
                 </div>
 
             </Carousel>

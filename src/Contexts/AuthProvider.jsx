@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '../FireBase/FireBase_Auth';
 
 const AuthProvider = ({children}) => {
@@ -22,6 +22,14 @@ const provider = new GoogleAuthProvider();
         setLoading(true);
         return signInWithEmailAndPassword(auth,email,password);
     }
+
+    // -----forget password--------
+
+    
+  const resetPassword = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
+
 
     // ---goole login----
 
@@ -52,6 +60,7 @@ useEffect( ()=>{
     const authInfo = {
            user,
        loading,
+       resetPassword,
        createUser,
        signIn,
        logOut,

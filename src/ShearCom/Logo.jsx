@@ -1,16 +1,14 @@
 import React from 'react';
-import logo from '/logo.png'
 import { motion } from "framer-motion";
+import { GiCommercialAirplane } from "react-icons/gi";
+
 const Logo = () => {
     return (
 
-            <div className="flex items-end ">
-                <img className='' 
-                src={logo} alt="logo" />
-                
-
+            <div className="flex  items-end ">
+<GiCommercialAirplane size={30} className="text-red-500  text-2xl" />
                   <motion.label
-      className="text-3xl -ml-3 font-extrabold"
+      className="text-3xl ml-2 font-extrabold"
       animate={{
         color: [ 
 
@@ -30,7 +28,7 @@ const Logo = () => {
         ease: "linear",
       }}
     >
-      ProFast
+      Tourism 
     </motion.label>
             </div>
    

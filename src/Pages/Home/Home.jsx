@@ -1,20 +1,20 @@
 import React from 'react';
-import Banar from './Banar';
-import ServiceCards from './Services/ServiceCard';
 import Marquee from 'react-fast-marquee';
 import RMarquee from './RMarquee';
-import FeatureCards from './FeatureCards';
-import MegaCard from './MegaCard';
+import Overview from './Overview';
+import ExtraSections from './ExtraSections';
+import Banar from './Banar';
+// import TravelTabs from './TravelTabs';
 
 const Home = () => {
     return (
         <div>
-            <Banar></Banar>
-            <ServiceCards></ServiceCards>
-            <RMarquee></RMarquee>
-            <FeatureCards></FeatureCards>
-            <MegaCard></MegaCard>
-        </div>
+             <RMarquee></RMarquee>
+             <Banar></Banar>
+        <Overview></Overview>
+        {/* <TravelTabs></TravelTabs> */}
+        <ExtraSections></ExtraSections>
+            </div>
     );
 };
 

@@ -9,7 +9,6 @@ const Navbar = () => {
   const navigate = useNavigate();
  
 
-
   const logOutt = () => {
     logOut()
       .then(() => {
@@ -28,21 +27,21 @@ const Navbar = () => {
     <>
       <li><NavLink to="/">Home</NavLink></li>
       <li><NavLink to="/about">About Us</NavLink></li>
+      <li><NavLink to="/community">Community</NavLink></li>
+       <li><NavLink to="/trips">Trips</NavLink></li>
       {user && (
         <>
-          <li><NavLink to="/services">Service</NavLink></li>
-          <li><NavLink to="/dasboard">Dasboard</NavLink></li>
-          <li><NavLink to="/sendpercel">Send Percel</NavLink></li>
-          <li><NavLink to="/track">Track Order</NavLink></li>
-          <li><NavLink to="/pricing">Pricing</NavLink></li>
-          <li><NavLink to="/derile">Be a Rider</NavLink></li>
+         
+          <li><NavLink to="/dashboard">Dasboard</NavLink></li>
+          <li><NavLink to="/addStory">Add  Stories </NavLink></li>
+          <li><NavLink to="/tourgide">Be TourGuide </NavLink></li>
         </>
       )}
     </>
   );
 
   return (
-    <div className="navbar bg-gradient-to-r from-green-400 via-sky-400 to-red-400 shadow-sm text-white">
+    <div className="navbar bg-gray-300 shadow-sm ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -64,27 +63,30 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-end">
-        {user ? (
-          <>
-            <div className="tooltip tooltip-bottom" data-tip={user.displayName }>
-              <img
-                src={user.photoURL}
-                alt="Profile"
-                className="w-10 h-10 rounded-full border-2 border-white"
-              />
-            </div>
-            <button onClick={logOutt} className="btn btn-sm ml-3">
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-        
-          <Link to="/register" className="btn mx-2 btn-sm">Register</Link>
-          <Link to="/login" className="btn btn-sm">Login</Link> 
-          
-            </>
-        )}
+       {user ? (
+  <div className="dropdown dropdown-end">
+    <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+      <div className="w-10 rounded-full">
+        <img src={user.photoURL} alt="Profile" />
+      </div>
+    </div>
+    <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-60">
+      <li className="text-center font-semibold">{user.displayName}</li>
+      <li className="text-center text-sm text-gray-500">{user.email}</li>
+      <div className="divider my-1"></div>
+      <li><Link to="/dasboard">Dashboard</Link></li>
+      <li>
+        <button onClick={logOutt} className="text-left w-full">Logout</button>
+      </li>
+    </ul>
+  </div>
+) : (
+  <>
+    <Link to="/register" className="btn mx-2 btn-sm">Register</Link>
+    <Link to="/login" className="btn btn-sm">Login</Link> 
+  </>
+)}
+
       </div>
     </div>
   );

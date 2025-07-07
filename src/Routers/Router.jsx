@@ -9,17 +9,9 @@ import Home from '../Pages/Home/Home';
 import AuthLAyOut from '../LayOuts/AuthLAyOut';
 import LogIn from '../Pages/Authentication/LogIn';
 import Register from '../Pages/Authentication/Register';
-import Map from '../Pages/Map/Map';
-import AboutUs from '../Components/About';
-import PricingCalculator from '../Components/PricingCalculator';
-import Services from '../Components/Services';
-import SendPercel from '../Components/SendPercel';
-import PrivateRoute from './PrivateRoute';
-import DasboardLayout from '../LayOuts/DasboardLayout';
-import MyPercel from '../Components/MyPercel';
-import Payment from '../Payment/Payment ';
-import PaymentHistory from '../Payment/PaymentHistory';
-import Track from '../Components/Track';
+// import PrivateRoute from './PrivateRoute';
+// import DasboardLayout from '../LayOuts/DasboardLayout';
+
 
 
 
@@ -32,25 +24,7 @@ import Track from '../Components/Track';
             index:true,
             element:<Home></Home>
         },
-        {
-          path:'/track' ,
-          element:<Map></Map>
-        },
-        {
-          path:'/about' ,
-          element:<AboutUs></AboutUs>
-        },
-        {
-          path:'/pricing',
-          element:<PricingCalculator></PricingCalculator>
-        },
-      {  path:'/services',
-        element: <Services></Services>
-      },
-      {
-        path:'/sendpercel' ,
-        element:<SendPercel></SendPercel>
-      }
+      
     ]
   },
   {
@@ -67,28 +41,14 @@ import Track from '../Components/Track';
       }
     ]
   },
-  {
-    path:'/dasboard',
-    element:<PrivateRoute>
-      <DasboardLayout></DasboardLayout>
-    </PrivateRoute>,
- children:[
-  {
-    path:'myPercel',
-    element:<MyPercel></MyPercel>
-  },
-  {
-    path:'payment/:parcelId',
-    element:<Payment></Payment>
-  },
-  {
-    path:'paymenthistory',
-    element:<PaymentHistory></PaymentHistory>
-  },
-  {
-    path:'track',
-    element:<Track></Track>
-  }
- ]
-  }
+//   {
+//     path:'/dasboard',
+//     element:<PrivateRoute>
+//       <DasboardLayout></DasboardLayout>
+//     </PrivateRoute>,
+//  children:[
+  
+ 
+//  ]
+//   }
 ]);
