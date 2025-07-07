@@ -1,0 +1,83 @@
+import React from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
+import { Link } from 'react-router';
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
+import useAxiosecure from '../../hooks/useAxiosecure';
+
+const ManageStories = () => {
+  const { user } = useAuth();
+  const queryClient = useQueryClient();
+  const axiosSecure = useAxiosecure();
+
+  const { data: stories = [], isLoading } = useQuery({
+    
+  queryKey: ['myStories'],
+  queryFn: async () => {
+    const res = await axiosSecure.get(`/api/stories?email=${user.email}`);
+    return res.data;
+    
+  },
+});
+
+  const deleteMutation = useMutation({
+    mutationFn: async (id) => {
+      return await axiosSecure.delete(`/api/stories/${id}`);
+    },
+    onSuccess: () => {
+      Swal.fire('Deleted!', 'Story deleted successfully', 'success');
+      queryClient.invalidateQueries(['myStories']);
+    },
+  });
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This will delete the story permanently!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteMutation.mutate(id);
+      }
+    });
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+
+  return (
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-6 text-center">My Stories</h2>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {stories.map(story => (
+          <div key={story._id} className="bg-white rounded shadow p-4">
+            <h3 className="text-xl font-semibold mb-2">{story.title}</h3>
+            <p className="text-gray-600 mb-2">{story.text?.slice(0, 100)}...</p>
+            <div className="flex gap-2 overflow-x-auto">
+              {story.images?.map((img, idx) => (
+                <img
+                  key={idx}
+                  src={`data:${img.mimeType};base64,${img.data}`}
+                  alt={img.originalName}
+                  className="w-20 h-20 object-cover rounded"
+                />
+              ))}
+            </div>
+            <div className="mt-4 flex justify-between">
+              <Link to={`/edit-story/${story._id}`} className="btn btn-sm btn-primary">
+                Edit
+              </Link>
+              <button onClick={() => handleDelete(story._id)} className="btn btn-sm btn-error">
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ManageStories;

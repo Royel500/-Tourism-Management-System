@@ -1,6 +1,6 @@
 import { FacebookShareButton, FacebookIcon } from 'react-share';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 const TouristStories = ({ stories }) => {
   const navigate = useNavigate();

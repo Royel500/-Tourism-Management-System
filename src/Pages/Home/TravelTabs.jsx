@@ -1,7 +1,6 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import PackagesTab from './PackagesTab';
-import GuidesTab from './GuidesTab';
+
 
 const TravelTabs = () => {
   return (
@@ -13,12 +12,12 @@ const TravelTabs = () => {
           <Tab>Meet Our Tour Guides</Tab>
         </TabList>
 
-        <TabPanel>
-          <PackagesTab />
+        {/* <TabPanel>
+          <Package />
         </TabPanel>
         <TabPanel>
           <GuidesTab />
-        </TabPanel>
+        </TabPanel> */}
       </Tabs>
     </section>
   );

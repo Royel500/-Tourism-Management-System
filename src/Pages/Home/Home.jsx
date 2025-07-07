@@ -5,6 +5,8 @@ import Overview from './Overview';
 import ExtraSections from './ExtraSections';
 import Banar from './Banar';
 // import TravelTabs from './TravelTabs';
+import TravelTabs from './TravelTabs';
+import TouristStories from './TouristStories';
 
 const Home = () => {
     return (
@@ -12,7 +14,8 @@ const Home = () => {
              <RMarquee></RMarquee>
              <Banar></Banar>
         <Overview></Overview>
-        {/* <TravelTabs></TravelTabs> */}
+          <TravelTabs></TravelTabs>
+          {/* <TouristStories></TouristStories> */}
         <ExtraSections></ExtraSections>
             </div>
     );

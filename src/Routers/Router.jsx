@@ -9,6 +9,8 @@ import Home from '../Pages/Home/Home';
 import AuthLAyOut from '../LayOuts/AuthLAyOut';
 import LogIn from '../Pages/Authentication/LogIn';
 import Register from '../Pages/Authentication/Register';
+import AddStory from '../Components/AddStory/AddStory';
+import ManageStories from '../Components/AddStory/ManageStories';
 // import PrivateRoute from './PrivateRoute';
 // import DasboardLayout from '../LayOuts/DasboardLayout';
 
@@ -24,6 +26,14 @@ import Register from '../Pages/Authentication/Register';
             index:true,
             element:<Home></Home>
         },
+        {
+          path:'addstory',
+          element:<AddStory></AddStory>
+        },
+        {
+          path:'/allStory',
+          element:<ManageStories></ManageStories>
+        }
       
     ]
   },
