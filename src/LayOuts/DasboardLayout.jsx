@@ -8,9 +8,10 @@ import {
   FaUserFriends,
   FaUserClock,
 } from 'react-icons/fa';
+import useRole from '../hooks/useRole';
 
 const DasboardLayout = () => {
- 
+  const {role, roleLoading} = useRole();
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -61,32 +62,18 @@ const DasboardLayout = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dasboard/paymenthistory" className="flex items-center gap-2">
-              <FaHistory className="text-lg" /> History
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dasboard/track" className="flex items-center gap-2">
-              <FaMapMarkedAlt className="text-lg" /> Track a Package
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/dasboard/makeAdmin" className="flex items-center gap-2">
               <FaMapMarkedAlt className="text-lg" /> Make Admin
             </NavLink>
           </li>
-      {/* { !roleLoading && role=== 'admin' &&
+      { !roleLoading && role=== 'admin' &&
         <>
             <li>
             <NavLink to="/dasboard/activeRider" className="flex items-center gap-2">
               <FaUserFriends className="text-lg" /> Active Riders
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/dasboard/pendingRider" className="flex items-center gap-2">
-              <FaUserClock className="text-lg" /> Pending Riders
-            </NavLink>
-          </li>
+         
           <li>
             <NavLink to="/dasboard/makeAdmin" className="flex items-center gap-2">
            <FaUserClock className="text-lg" />   Admin Page
@@ -97,7 +84,7 @@ const DasboardLayout = () => {
           </li>
 
         </>
-      } */}
+      }
 
         </ul>
       </div>
