@@ -1,6 +1,5 @@
 import React from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
 import { Link } from 'react-router';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
@@ -66,7 +65,7 @@ const ManageStories = () => {
               ))}
             </div>
             <div className="mt-4 flex justify-between">
-              <Link to={`/edit-story/${story._id}`} className="btn btn-sm btn-primary">
+              <Link to={`/editstory/${story._id}`} className="btn btn-sm btn-primary">
                 Edit
               </Link>
               <button onClick={() => handleDelete(story._id)} className="btn btn-sm btn-error">

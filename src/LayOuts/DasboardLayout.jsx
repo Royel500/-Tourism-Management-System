@@ -56,8 +56,8 @@ const DasboardLayout = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dasboard/myPercel" className="flex items-center gap-2">
-              <FaBoxOpen className="text-lg" /> My Parcels
+            <NavLink to="/dasboard/pendingGuide" className="flex items-center gap-2">
+              <FaBoxOpen className="text-lg" /> Pending Guide
             </NavLink>
           </li>
           <li>
@@ -70,7 +70,12 @@ const DasboardLayout = () => {
               <FaMapMarkedAlt className="text-lg" /> Track a Package
             </NavLink>
           </li>
-      { !roleLoading && role=== 'admin' &&
+          <li>
+            <NavLink to="/dasboard/makeAdmin" className="flex items-center gap-2">
+              <FaMapMarkedAlt className="text-lg" /> Make Admin
+            </NavLink>
+          </li>
+      {/* { !roleLoading && role=== 'admin' &&
         <>
             <li>
             <NavLink to="/dasboard/activeRider" className="flex items-center gap-2">
@@ -88,15 +93,11 @@ const DasboardLayout = () => {
             </NavLink>
           </li>
           <li>
-<NavLink
-  to="/dasboard/assign-rider"
->
-  🚚 Assign Rider
-</NavLink>
+
           </li>
 
         </>
-      }
+      } */}
 
         </ul>
       </div>

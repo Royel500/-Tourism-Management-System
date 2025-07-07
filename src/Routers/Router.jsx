@@ -11,8 +11,13 @@ import LogIn from '../Pages/Authentication/LogIn';
 import Register from '../Pages/Authentication/Register';
 import AddStory from '../Components/AddStory/AddStory';
 import ManageStories from '../Components/AddStory/ManageStories';
-// import PrivateRoute from './PrivateRoute';
-// import DasboardLayout from '../LayOuts/DasboardLayout';
+import UpdateStory from '../Components/AddStory/UpdateStory';
+import JoinAsTourGuide from '../Components/Be A Guide/TourGuide';
+import PendingGuid from '../Components/Be A Guide/PendingGuid';
+import PrivateRoute from './PrivateRoute';
+import DasboardLayout from '../LayOuts/DasboardLayout';
+import PendingTourGuides from '../Components/Be A Guide/PendingGuid';
+import MakeAdmin from './../Components/RoleSet/MakeAdmin';
 
 
 
@@ -31,9 +36,17 @@ import ManageStories from '../Components/AddStory/ManageStories';
           element:<AddStory></AddStory>
         },
         {
-          path:'/allStory',
+          path:'allStory',
           element:<ManageStories></ManageStories>
-        }
+        },
+     {
+  path: 'editstory/:id',
+  element: <UpdateStory />
+},
+{
+  path:'tourguide',
+  element:<JoinAsTourGuide></JoinAsTourGuide>
+}
       
     ]
   },
@@ -51,14 +64,20 @@ import ManageStories from '../Components/AddStory/ManageStories';
       }
     ]
   },
-//   {
-//     path:'/dasboard',
-//     element:<PrivateRoute>
-//       <DasboardLayout></DasboardLayout>
-//     </PrivateRoute>,
-//  children:[
-  
- 
-//  ]
-//   }
+{
+  path:'/dasboard',
+  element:<PrivateRoute>
+    <DasboardLayout></DasboardLayout>
+  </PrivateRoute>,
+  children:[
+    {
+      path:'pendingGuide',
+      element:<PendingTourGuides/>
+    },
+    {
+      path:'makeAdmin',
+      element:<MakeAdmin></MakeAdmin>
+    }
+  ]
+}
 ]);
