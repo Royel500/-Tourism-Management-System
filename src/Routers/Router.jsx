@@ -18,6 +18,8 @@ import PrivateRoute from './PrivateRoute';
 import DasboardLayout from '../LayOuts/DasboardLayout';
 import PendingTourGuides from '../Components/Be A Guide/PendingGuid';
 import MakeAdmin from './../Components/RoleSet/MakeAdmin';
+import BookNowForm from '../Components/Packages/BookNowFrom';
+import AddPackage from '../Components/Packages/AddPackage';
 
 
 
@@ -77,7 +79,16 @@ import MakeAdmin from './../Components/RoleSet/MakeAdmin';
     {
       path:'makeAdmin',
       element:<MakeAdmin></MakeAdmin>
+    },
+    {
+      path:'bookPackage',
+      element:<BookNowForm></BookNowForm>
+    },
+    {
+      path:'addPackage',
+      element:<AddPackage></AddPackage>
     }
+
   ]
 }
 ]);

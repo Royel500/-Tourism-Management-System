@@ -7,6 +7,7 @@ import {
   FaMapMarkedAlt,
   FaUserFriends,
   FaUserClock,
+  FaRegCalendarCheck
 } from 'react-icons/fa';
 import useRole from '../hooks/useRole';
 
@@ -56,21 +57,25 @@ const DasboardLayout = () => {
               <FaHome className="text-lg" /> Home
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/dasboard/pendingGuide" className="flex items-center gap-2">
-              <FaBoxOpen className="text-lg" /> Pending Guide
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/dasboard/makeAdmin" className="flex items-center gap-2">
-              <FaMapMarkedAlt className="text-lg" /> Make Admin
-            </NavLink>
-          </li>
+        
+         
+        
       { !roleLoading && role=== 'admin' &&
         <>
+                <li>
+          <NavLink to="/dasboard/bookPackage" className="flex items-center gap-2">
+            <FaRegCalendarCheck className="text-lg" /> Package
+          </NavLink>
+        </li>
+                <li>
+          <NavLink to="/dasboard/addPackage" className="flex items-center gap-2">
+            <FaRegCalendarCheck className="text-lg" /> Add Package
+          </NavLink>
+        </li>
+
             <li>
             <NavLink to="/dasboard/activeRider" className="flex items-center gap-2">
-              <FaUserFriends className="text-lg" /> Active Riders
+              <FaUserFriends className="text-lg" /> Active Guide
             </NavLink>
           </li>
          
@@ -83,8 +88,19 @@ const DasboardLayout = () => {
 
           </li>
 
+            <li>
+            <NavLink to="/dasboard/pendingGuide" className="flex items-center gap-2">
+              <FaBoxOpen className="text-lg" /> Pending Guide
+            </NavLink>
+          </li>
+
         </>
       }
+      {!roleLoading && role === 'Tourist' && 
+      <>
+      
+      
+      </>}
 
         </ul>
       </div>

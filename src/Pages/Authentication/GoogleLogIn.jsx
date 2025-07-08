@@ -22,7 +22,7 @@ const GoogleLogIn = () => {
           name: user.displayName,
           email: user.email,
           photoURL: user.photoURL || '',
-          role: 'user',
+          role: 'Tourist',
           createdAt: new Date().toISOString(),
         };
 

@@ -58,6 +58,7 @@ const PendingTourGuides = () => {
             <th>Reason</th>
             <th>CV</th>
             <th>Submitted At</th>
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -78,6 +79,7 @@ const PendingTourGuides = () => {
                 </a>
               </td>
               <td>{new Date(guide.createdAt).toLocaleString()}</td>
+              <td>{guide.status}</td>
               <td className="flex gap-2">
                 <button
                   onClick={() => handleStatusChange(guide._id, 'accepted')}

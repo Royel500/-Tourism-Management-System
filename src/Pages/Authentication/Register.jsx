@@ -62,12 +62,11 @@ const Register = () => {
         name: displayName,
         email,
         photoURL: photoURL || '',
-        role: 'user',
+        role: 'Tourist',
         createdAt: new Date().toISOString(),
       };
 
       const userRes = await axiosIns.post('/api/users', userInfo);
-      console.log("User saved:", userRes.data);
   
       Swal.fire("Account Created!", "Welcome to the platform!", "success");
       navigate('/');
