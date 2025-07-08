@@ -14,7 +14,7 @@ const ManageStories = () => {
     
   queryKey: ['myStories'],
   queryFn: async () => {
-    const res = await axiosSecure.get(`/api/stories?email=${user.email}`);
+    const res = await axiosSecure.get(`/api/stories`);
     return res.data;
     
   },
@@ -48,7 +48,7 @@ const ManageStories = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6 text-center">My Stories</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center">All Stories</h2>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {stories.map(story => (
           <div key={story._id} className="bg-white rounded shadow p-4">
