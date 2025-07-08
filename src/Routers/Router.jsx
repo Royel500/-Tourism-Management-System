@@ -20,6 +20,7 @@ import PendingTourGuides from '../Components/Be A Guide/PendingGuid';
 import MakeAdmin from './../Components/RoleSet/MakeAdmin';
 import BookNowForm from '../Components/Packages/BookNowFrom';
 import AddPackage from '../Components/Packages/AddPackage';
+import ManageUsers from '../Components/RoleSet/ManageUsers';
 
 
 
@@ -87,6 +88,10 @@ import AddPackage from '../Components/Packages/AddPackage';
     {
       path:'addPackage',
       element:<AddPackage></AddPackage>
+    },
+    {
+      path:'manageUsers',
+      element:<ManageUsers></ManageUsers>
     }
 
   ]

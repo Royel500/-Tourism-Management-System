@@ -93,6 +93,11 @@ const DasboardLayout = () => {
               <FaBoxOpen className="text-lg" /> Pending Guide
             </NavLink>
           </li>
+            <li>
+            <NavLink to="/dasboard/manageUsers" className="flex items-center gap-2">
+              <FaBoxOpen className="text-lg" /> ManageUsers
+            </NavLink>
+          </li>
 
         </>
       }

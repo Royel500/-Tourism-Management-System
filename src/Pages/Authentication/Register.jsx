@@ -62,7 +62,7 @@ const Register = () => {
         name: displayName,
         email,
         photoURL: photoURL || '',
-        role: 'Tourist',
+        role: 'tourist',
         createdAt: new Date().toISOString(),
       };
 
