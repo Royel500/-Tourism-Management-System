@@ -21,6 +21,7 @@ import MakeAdmin from './../Components/RoleSet/MakeAdmin';
 import BookNowForm from '../Components/Packages/BookNowFrom';
 import AddPackage from '../Components/Packages/AddPackage';
 import ManageUsers from '../Components/RoleSet/ManageUsers';
+import ManageProfile from '../Components/RoleSet/ManageProfile';
 
 
 
@@ -92,6 +93,10 @@ import ManageUsers from '../Components/RoleSet/ManageUsers';
     {
       path:'manageUsers',
       element:<ManageUsers></ManageUsers>
+    },
+    {
+      path:'manageProfile',
+      element:<ManageProfile></ManageProfile>
     }
 
   ]

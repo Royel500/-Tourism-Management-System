@@ -63,6 +63,11 @@ const DasboardLayout = () => {
       { !roleLoading && role=== 'admin' &&
         <>
                 <li>
+          <NavLink to="/dasboard/manageProfile" className="flex items-center gap-2">
+            <FaRegCalendarCheck className="text-lg" /> Manage Profile
+          </NavLink>
+        </li>
+                <li>
           <NavLink to="/dasboard/bookPackage" className="flex items-center gap-2">
             <FaRegCalendarCheck className="text-lg" /> Package
           </NavLink>
@@ -73,11 +78,6 @@ const DasboardLayout = () => {
           </NavLink>
         </li>
 
-            <li>
-            <NavLink to="/dasboard/activeRider" className="flex items-center gap-2">
-              <FaUserFriends className="text-lg" /> Active Guide
-            </NavLink>
-          </li>
          
           <li>
             <NavLink to="/dasboard/makeAdmin" className="flex items-center gap-2">
@@ -90,12 +90,12 @@ const DasboardLayout = () => {
 
             <li>
             <NavLink to="/dasboard/pendingGuide" className="flex items-center gap-2">
-              <FaBoxOpen className="text-lg" /> Pending Guide
+              <FaBoxOpen className="text-lg" /> Manage Candidates
             </NavLink>
           </li>
             <li>
             <NavLink to="/dasboard/manageUsers" className="flex items-center gap-2">
-              <FaBoxOpen className="text-lg" /> ManageUsers
+              <FaBoxOpen className="text-lg" /> Manage Users
             </NavLink>
           </li>
 
