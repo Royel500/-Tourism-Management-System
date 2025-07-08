@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import useAuth from '../../hooks/useAuth';
-import useAxiosecure from '../../hooks/useAxiosecure';
 import Swal from 'sweetalert2';
+import useAxiosecure from '../../hooks/useAxiosecure';
+import useAuth from '../../hooks/useAuth';
 
 const ManageProfile = () => {
   const { user } = useAuth();
@@ -15,12 +15,13 @@ const ManageProfile = () => {
   const { data: stats = {} } = useQuery({
     queryKey: ['admin-stats'],
     queryFn: async () => {
-      const [payments, guides, packages, clients, stories] = await Promise.all([
+      const [payments, guides, packages, clients, stories,data] = await Promise.all([
         axiosSecure.get('/api/payments/total'),
         axiosSecure.get('/api/users/count?role=guide'),
         axiosSecure.get('/api/packages/count'),
         axiosSecure.get('/api/users/count?role=user'),
         axiosSecure.get('/api/stories/count'),
+      
       ]);
       return {
         totalPayment: payments.data.total || 0,
@@ -28,6 +29,7 @@ const ManageProfile = () => {
         totalPackages: packages.data.count,
         totalClients: clients.data.count,
         totalStories: stories.data.count,
+
       };
     },
   });
@@ -56,7 +58,8 @@ const ManageProfile = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-6">
-      <h2 className="text-3xl font-bold text-center mb-6">Welcome, {user?.displayName || 'Admin'}!</h2>
+      <h2 className="text-3xl font-bold text-center mb-6">
+        Welcome,<span className='text-pink-700 font-bold italic'> {user?.displayName || 'Admin'}!</span></h2>
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
@@ -87,11 +90,11 @@ const ManageProfile = () => {
         <img src={user?.photoURL} alt="Admin" className="w-24 h-24 mx-auto rounded-full mb-4" />
         <h3 className="text-xl font-bold">{user?.displayName}</h3>
         <p className="text-gray-500">{user?.email}</p>
-        <p className="text-sm mt-1 font-medium bg-gray-200 inline-block px-3 py-1 rounded-full">{user?.role || 'admin'}</p>
+        <p className="text-sm my-2 font-bold bg-blue-400 inline-block px-3 py-1  rounded-full">{user?.role || 'Admin'}</p>
         <button onClick={() => {
           setIsOpen(true);
           reset({ name: user.displayName, photo: user.photoURL });
-        }} className="btn btn-outline btn-sm mt-4">Edit</button>
+        }} className="btn btn-outline btn-sm mx-2">Edit</button>
       </div>
 
       {/* Edit Modal */}
