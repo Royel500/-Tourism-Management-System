@@ -17,29 +17,30 @@ const Register = () => {
   const axiosIns = useAxios(); // axios instance with token
 
   // ✅ Upload image to ImgBB
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+ const handleImageUpload = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
 
-    const formData = new FormData();
-    formData.append('image', file);
-    setUploading(true);
+  const formData = new FormData();
+  formData.append('image', file);
+  setUploading(true);
 
-    try {
-      const res = await axios.post(
-        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_PHOTO_KEY}`,
-        formData
-      );
-      const url = res.data.data.url;
-      setPhotoURL(url);
-      Swal.fire("✅ Success!", "Photo uploaded.", "success");
-    } catch (err) {
-      console.error("Image upload error:", err);
-      Swal.fire("❌ Error", "Failed to upload image", "error");
-    } finally {
-      setUploading(false);
-    }
-  };
+  try {
+    const res = await axios.post(
+      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_PHOTO_KEY}`,
+      formData
+    );
+    const url = res.data.data.url;
+    setPhotoURL(url); // ✅ store it for use
+    Swal.fire("✅ Success!", "Photo uploaded.", "success");
+  } catch (err) {
+    console.error("Image upload error:", err);
+    Swal.fire("❌ Error", "Failed to upload image", "error");
+  } finally {
+    setUploading(false); // ✅ stop spinner
+  }
+};
+
 
   // ✅ Form submit handler
   const onSubmit = async (data) => {
@@ -123,7 +124,6 @@ const Register = () => {
               className="file-input file-input-bordered w-full"
             />
             {uploading && <p className="text-blue-500">Uploading...</p>}
-            {photoURL && <img src={photoURL} alt="Preview" className="w-20 h-20 rounded-full mt-2 border" />}
 
             <button type="submit" className="btn btn-neutral mt-4 w-full">Register</button>
 

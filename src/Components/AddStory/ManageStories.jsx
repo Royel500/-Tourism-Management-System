@@ -55,14 +55,17 @@ const ManageStories = () => {
             <h3 className="text-xl font-semibold mb-2">{story.title}</h3>
             <p className="text-gray-600 mb-2">{story.text?.slice(0, 100)}...</p>
             <div className="flex gap-2 overflow-x-auto">
-              {story.images?.map((img, idx) => (
+              <img src={story?.imageUrl} alt="Pending" />
+              {/* {story.images?.map((img, idx) => (
+                console.log(story.images),
+
                 <img
                   key={idx}
                   src={`data:${img.mimeType};base64,${img.data}`}
                   alt={img.originalName}
                   className="w-20 h-20 object-cover rounded"
                 />
-              ))}
+              ))} */}
             </div>
             <div className="mt-4 flex justify-between">
               <Link to={`/editstory/${story._id}`} className="btn btn-sm btn-primary">
