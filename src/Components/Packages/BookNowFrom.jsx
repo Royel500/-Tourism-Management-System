@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import 'react-datepicker/dist/react-datepicker.css';
 import useAxiosecure from '../../hooks/useAxiosecure';
 import useAuth from '../../hooks/useAuth';
 
-const BookNowForm = ({ selectedPackage }) => {
+const BookNowForm = () => {
+  const location = useLocation();
+  const pkg = location.state?.pkg;   
+
+
   const { user } = useAuth();
   const axiosSecure = useAxiosecure();
   const navigate = useNavigate();
@@ -22,6 +26,7 @@ const BookNowForm = ({ selectedPackage }) => {
     });
   }, [axiosSecure]);
 
+
   const handleBooking = async (e) => {
     e.preventDefault();
 
@@ -31,14 +36,15 @@ const BookNowForm = ({ selectedPackage }) => {
     }
 
     const bookingData = {
-      packageName: selectedPackage?.title || "N/A",
+      packageName: pkg?.title || "N/A",
       touristName: user?.displayName || "N/A",
       touristEmail: user?.email,
       touristImage: user?.photoURL,
-      price: selectedPackage?.price,
+      price: pkg?.price,
       date: tourDate,
       guideName: guide,
       status: "pending",
+      payment_status:'unpaid',
       createdAt: new Date()
     };
 
@@ -51,7 +57,7 @@ const BookNowForm = ({ selectedPackage }) => {
           icon: "success",
           confirmButtonText: "Go to My Bookings"
         }).then(() => {
-          navigate('/dasboard/my-bookings');
+          navigate('/dasboard/myBookings');
         });
       }
     } catch (err) {
@@ -66,13 +72,19 @@ const BookNowForm = ({ selectedPackage }) => {
 
       <div>
         <label className="label">Package Name</label>
-        <input type="text" value={selectedPackage?.title || ''} disabled className="input input-bordered w-full" />
+        <input type="text" value={pkg?.title || ''} disabled className="input input-bordered w-full" />
       </div>
 
+     <div className='flex'>
       <div>
         <label className="label">Tourist Name</label>
         <input type="text" value={user?.displayName || ''} disabled className="input input-bordered w-full" />
       </div>
+  <div>
+        <label className="label">Price</label>
+        <input type="text" value={pkg?.price || ''} disabled className="input input-bordered w-full" />
+      </div>
+          </div>
 
       <div>
         <label className="label">Tourist Email</label>
@@ -84,10 +96,7 @@ const BookNowForm = ({ selectedPackage }) => {
         <input type="text" value={user?.photoURL || ''} disabled className="input input-bordered w-full" />
       </div>
 
-      <div>
-        <label className="label">Price</label>
-        <input type="text" value={selectedPackage?.price || ''} disabled className="input input-bordered w-full" />
-      </div>
+    
 
       <div>
         <label className="label">Select Tour Date</label>
@@ -110,7 +119,7 @@ const BookNowForm = ({ selectedPackage }) => {
         >
           <option value="">-- Select a Guide --</option>
           {guides.map((g) => (
-            <option key={g._id} value={g.title}>{g.title}</option>
+            <option key={g._id} value={g.name}>{g.name}</option>
           ))}
         </select>
       </div>

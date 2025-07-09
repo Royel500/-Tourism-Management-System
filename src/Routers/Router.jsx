@@ -22,6 +22,8 @@ import BookNowForm from '../Components/Packages/BookNowFrom';
 import AddPackage from '../Components/Packages/AddPackage';
 import ManageUsers from '../Components/RoleSet/ManageUsers';
 import ManageProfile from '../Components/RoleSet/ManageProfile';
+import AllPackages from '../Components/Packages/AllPackages';
+import MyBookings from '../Components/Booking/MyBookings';
 
 
 
@@ -83,7 +85,7 @@ import ManageProfile from '../Components/RoleSet/ManageProfile';
       element:<MakeAdmin></MakeAdmin>
     },
     {
-      path:'bookPackage',
+      path:'book/:id',
       element:<BookNowForm></BookNowForm>
     },
     {
@@ -97,6 +99,14 @@ import ManageProfile from '../Components/RoleSet/ManageProfile';
     {
       path:'manageProfile',
       element:<ManageProfile></ManageProfile>
+    },
+    {
+      path:'packages',
+      element:<AllPackages></AllPackages>
+    },
+    {
+      path:'myBookings',
+      element:<MyBookings></MyBookings>
     }
 
   ]

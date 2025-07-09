@@ -3,8 +3,6 @@ import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import useAxiosecure from '../../hooks/useAxiosecure';
 
-const IMGBB_API_KEY = 'YOUR_IMGBB_API_KEY'; // put your imgbb key here
-
 const AddPackage = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const axiosSecure = useAxiosecure();

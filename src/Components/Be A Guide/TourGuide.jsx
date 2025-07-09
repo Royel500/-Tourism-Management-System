@@ -35,9 +35,14 @@ const JoinAsTourGuide = () => {
   });
 
 const onSubmit = (data) => {
-  const fullData = { ...data, email: user.email }; 
+  const fullData = {
+    ...data,
+    email: user?.email,
+    name: user?.displayName,
+  };
   mutation.mutate(fullData);
 };
+
 
   return (
     <div className="max-w-xl mx-auto p-6 bg-white shadow-md rounded">

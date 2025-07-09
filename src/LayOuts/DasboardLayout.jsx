@@ -57,7 +57,9 @@ const DasboardLayout = () => {
               <FaHome className="text-lg" /> Home
             </NavLink>
           </li>
-        
+        <NavLink to="/dasboard/packages" className="menu-item">
+  📦 All Packages
+</NavLink>
          
         
       { !roleLoading && role=== 'admin' &&
@@ -67,11 +69,11 @@ const DasboardLayout = () => {
             <FaRegCalendarCheck className="text-lg" /> Manage Profile
           </NavLink>
         </li>
-                <li>
-          <NavLink to="/dasboard/bookPackage" className="flex items-center gap-2">
-            <FaRegCalendarCheck className="text-lg" /> Package
+                {/* <li>
+          <NavLink to="/dasboard/book" className="flex items-center gap-2">
+            <FaRegCalendarCheck className="text-lg" /> Book Now
           </NavLink>
-        </li>
+        </li> */}
                 <li>
           <NavLink to="/dasboard/addPackage" className="flex items-center gap-2">
             <FaRegCalendarCheck className="text-lg" /> Add Package
@@ -101,10 +103,14 @@ const DasboardLayout = () => {
 
         </>
       }
-      {!roleLoading && role === 'Tourist' && 
+      {!roleLoading && role === 'Tourist' || role === 'admin' && 
       <>
       
-      
+         <li>
+            <NavLink to="/dasboard/myBookings" className="flex items-center gap-2">
+              <FaBoxOpen className="text-lg" /> My Bookings
+            </NavLink>
+          </li>
       </>}
 
         </ul>
