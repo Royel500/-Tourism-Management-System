@@ -24,6 +24,7 @@ import ManageUsers from '../Components/RoleSet/ManageUsers';
 import ManageProfile from '../Components/RoleSet/ManageProfile';
 import AllPackages from '../Components/Packages/AllPackages';
 import MyBookings from '../Components/Booking/MyBookings';
+import Payment from '../Payment/Payment ';
 
 
 
@@ -107,6 +108,10 @@ import MyBookings from '../Components/Booking/MyBookings';
     {
       path:'myBookings',
       element:<MyBookings></MyBookings>
+    },
+    {
+      path:'payment/:bookingId',
+      element:<Payment></Payment>
     }
 
   ]

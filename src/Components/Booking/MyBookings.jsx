@@ -54,7 +54,7 @@ const MyBookings = () => {
         text: 'You have already completed the payment for this booking.',
       });
     } else {
-      navigate(`/dashboard/payment/${booking._id}`);
+      navigate(`/dasboard/payment/${booking._id}`);
     }
   };
 
