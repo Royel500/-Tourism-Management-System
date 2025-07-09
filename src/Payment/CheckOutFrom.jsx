@@ -44,7 +44,8 @@ const CheckOutForm = () => {
     }
 
     try {
-      const { error, paymentMethod } = await stripe.createPaymentMethod({
+      // Create payment method
+      const { error: paymentMethodError, paymentMethod } = await stripe.createPaymentMethod({
         type: 'card',
         card,
         billing_details: {
@@ -52,23 +53,20 @@ const CheckOutForm = () => {
           email: user?.email,
         },
       });
-      console.log(paymentMethod);
-      
-      if (error) {
-        setError(error.message);
+      if (paymentMethodError) {
+        setError(paymentMethodError.message);
         setLoading(false);
         return;
       }
 
-      // Create PaymentIntent
+      // Create payment intent
       const res = await axiosSecure.post('/create-payment-intent', {
         amountInCents,
         bookingId,
       });
-
       const clientSecret = res.data.clientSecret;
 
-      // Confirm payment
+      // Confirm card payment
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card,
@@ -82,26 +80,33 @@ const CheckOutForm = () => {
       if (result.error) {
         setError(result.error.message);
       } else if (result.paymentIntent.status === 'succeeded') {
-        // Save payment info
+        // Save payment info to DB
         await axiosSecure.post('/payments', {
           bookingId,
           userEmail: user.email,
           amount: price,
           transactionId: result.paymentIntent.id,
-          status: 'succeeded',
+          payment_status: 'paid',
           date: new Date(),
         });
 
-        // Update booking status to "paid"
-        await axiosSecure.patch(`/api/bookings/${bookingId}`, {
-          payment_status: 'paid',
-        });
-
+        // Show success alert first
         Swal.fire({
           icon: 'success',
           title: 'Payment Successful!',
           text: `Transaction ID: ${result.paymentIntent.id}`,
         });
+
+        // Then update booking status, but don't block alert if fails
+        try {
+          await axiosSecure.patch(`/api/bookings/${bookingId}`, {
+            payment_status: 'paid',
+          });
+          console.log('Booking status updated successfully.');
+        } catch (patchError) {
+          console.warn('Failed to update booking status:', patchError);
+          // Optionally, you can show a warning here or ignore
+        }
       }
     } catch (err) {
       console.error('Unhandled error:', err);

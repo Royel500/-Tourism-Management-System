@@ -18,6 +18,7 @@ const BookNowForm = () => {
   const [guides, setGuides] = useState([]);
   const [tourDate, setTourDate] = useState(null);
   const [guide, setGuide] = useState('');
+const selectedGuide = guides.find(gg => gg.name === guide);
 
   useEffect(() => {
     // ✅ Fetch accepted tour guides
@@ -43,8 +44,9 @@ const BookNowForm = () => {
       price: pkg?.price,
       date: tourDate,
       guideName: guide,
-      status: "pending",
+     guideEmail: selectedGuide?.email || '',
       payment_status:'unpaid',
+      status:'pending' ,
       createdAt: new Date()
     };
 
@@ -119,7 +121,7 @@ const BookNowForm = () => {
         >
           <option value="">-- Select a Guide --</option>
           {guides.map((g) => (
-            <option key={g._id} value={g.name}>{g.name}</option>
+            <option key={g._id} value={g.name}>{g.name || g.email} </option>
           ))}
         </select>
       </div>

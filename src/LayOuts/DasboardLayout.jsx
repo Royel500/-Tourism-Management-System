@@ -62,7 +62,7 @@ const DasboardLayout = () => {
 </NavLink>
          
         
-      { !roleLoading && role=== 'admin' &&
+      { !roleLoading && role === 'admin' &&
         <>
                 <li>
           <NavLink to="/dasboard/manageProfile" className="flex items-center gap-2">
@@ -103,15 +103,25 @@ const DasboardLayout = () => {
 
         </>
       }
-      {!roleLoading && role === 'Tourist' || role === 'admin' && 
-      <>
+      {!roleLoading && (role === 'Tourist' || role === 'admin') && 
+      (<>
       
          <li>
             <NavLink to="/dasboard/myBookings" className="flex items-center gap-2">
               <FaBoxOpen className="text-lg" /> My Bookings
             </NavLink>
           </li>
-      </>}
+      </>)}
+
+    {!roleLoading && (role === 'guide' || role === 'admin') && (<>
+        
+         <li>
+            <NavLink to="/dasboard/myAssignedTours" className="flex items-center gap-2">
+              <FaBoxOpen className="text-lg" /> My Assigned Tours
+            </NavLink>
+          </li>
+        </>
+      )}
 
         </ul>
       </div>

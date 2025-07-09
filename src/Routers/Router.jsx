@@ -25,6 +25,7 @@ import ManageProfile from '../Components/RoleSet/ManageProfile';
 import AllPackages from '../Components/Packages/AllPackages';
 import MyBookings from '../Components/Booking/MyBookings';
 import Payment from '../Payment/Payment ';
+import MyAssignedTours from '../Components/MyAssignedTours/MyAssignedTours';
 
 
 
@@ -112,6 +113,10 @@ import Payment from '../Payment/Payment ';
     {
       path:'payment/:bookingId',
       element:<Payment></Payment>
+    },
+    {
+      path:'myAssignedTours',
+      element:<MyAssignedTours></MyAssignedTours>
     }
 
   ]
