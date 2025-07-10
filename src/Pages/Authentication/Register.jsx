@@ -16,7 +16,7 @@ const Register = () => {
   const [uploading, setUploading] = useState(false);
   const axiosIns = useAxios(); // axios instance with token
 
-  // ✅ Upload image to ImgBB
+  // Upload image to ImgBB
  const handleImageUpload = async (e) => {
   const file = e.target.files[0];
   if (!file) return;
@@ -31,18 +31,18 @@ const Register = () => {
       formData
     );
     const url = res.data.data.url;
-    setPhotoURL(url); // ✅ store it for use
-    Swal.fire("✅ Success!", "Photo uploaded.", "success");
+    setPhotoURL(url); // store it for use
+    Swal.fire(" Success!", "Photo uploaded.", "success");
   } catch (err) {
     console.error("Image upload error:", err);
-    Swal.fire("❌ Error", "Failed to upload image", "error");
+    Swal.fire(" Error", "Failed to upload image", "error");
   } finally {
-    setUploading(false); // ✅ stop spinner
+    setUploading(false); 
   }
 };
 
 
-  // ✅ Form submit handler
+  //  Form submit handler
   const onSubmit = async (data) => {
     const { email, password, displayName } = data;
 
@@ -50,13 +50,13 @@ const Register = () => {
       const res = await createUser(email, password);
       const loggedUser = res.user;
 
-      // ✅ Update Firebase profile
+      //  Update Firebase profile
       await updateProfile(loggedUser, {
         displayName,
         photoURL: photoURL || '',
       });
 
-      // ✅ Save user to MongoDB backend
+      //  Save user to MongoDB backend
       const userInfo = {
         uid: loggedUser.uid,
         name: displayName,
@@ -135,8 +135,10 @@ const Register = () => {
           </fieldset>
         </div>
       </form>
-
-      <GoogleLogIn />
+    <div className="px-6 pb-4">
+ <GoogleLogIn />
+    </div>
+     
     </div>
   );
 };

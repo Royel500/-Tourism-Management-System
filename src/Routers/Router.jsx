@@ -26,6 +26,7 @@ import AllPackages from '../Components/Packages/AllPackages';
 import MyBookings from '../Components/Booking/MyBookings';
 import Payment from '../Payment/Payment ';
 import MyAssignedTours from '../Components/MyAssignedTours/MyAssignedTours';
+import PackageDetails from '../Components/Packages/PackageDetails';
 
 
 
@@ -117,6 +118,10 @@ import MyAssignedTours from '../Components/MyAssignedTours/MyAssignedTours';
     {
       path:'myAssignedTours',
       element:<MyAssignedTours></MyAssignedTours>
+    },
+    {
+      path:'packageDetails/:id',
+      element:<PackageDetails></PackageDetails>
     }
 
   ]

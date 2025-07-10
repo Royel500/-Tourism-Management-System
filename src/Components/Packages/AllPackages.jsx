@@ -39,9 +39,11 @@ const AllPackages = () => {
             <p className="text-sm text-gray-700 mb-1">
               <span className="font-medium">Price:</span> ${pkg.price}
             </p>
-            <p className="text-sm text-gray-600 mb-2">
+
+            {/* <p className="text-sm text-gray-600 mb-2">
               {pkg.description?.slice(0, 80)}...
-            </p>
+            </p> */}
+
             <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs mb-3">
               Difficulty: {pkg.difficulty}
             </span>
@@ -49,18 +51,12 @@ const AllPackages = () => {
             {/* Buttons */}
             <div className="mt-auto flex justify-between gap-2">
               <Link
-                to={`/package/${pkg._id}`}
+                to={`/dasboard/packageDetails/${pkg._id}`}
                 className="btn btn-sm btn-outline btn-info w-1/2"
               >
                 Details
               </Link>
-       <NavLink
-  to={`/dasboard/book/${pkg._id}`}
-  state={{ pkg }}
-  className="w-1/2"
->
-  <button className="btn btn-sm btn-primary w-full">Book Now</button>
-</NavLink>
+
 
             
             </div>

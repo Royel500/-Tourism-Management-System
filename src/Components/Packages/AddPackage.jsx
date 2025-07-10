@@ -9,22 +9,27 @@ const AddPackage = () => {
 
   const [uploading, setUploading] = useState(false);
 
-  const uploadImageToImgbb = async (file) => {
-    const formData = new FormData();
-    formData.append('image', file);
-    const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_PHOTO_KEY}`;
+ const uploadImageToImgbb = async (file) => {
+  const formData = new FormData();
+  formData.append('image', file);
+  const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_PHOTO_KEY}`;
 
-    const res = await fetch(url, {
-      method: 'POST',
-      body: formData,
-    });
-    const data = await res.json();
-    if (data.success) {
-      return data.data.url;
-    } else {
-      throw new Error('Image upload failed');
-    }
-  };
+  const res = await fetch(url, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to upload image: ${res.status} ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  if (data.success) {
+    return data.data.url;
+  } else {
+    throw new Error(data.error?.message || 'Image upload failed');
+  }
+};
 
   const onSubmit = async (data) => {
     if (!data.images || data.images.length === 0) {

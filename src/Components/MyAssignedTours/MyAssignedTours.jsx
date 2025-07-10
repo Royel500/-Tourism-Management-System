@@ -58,6 +58,8 @@ const MyAssignedTours = () => {
             <th className="border border-gray-300 p-2">Tourist Name</th>
             <th className="border border-gray-300 p-2">Tour Date</th>
             <th className="border border-gray-300 p-2">Price</th>
+            <th className="border border-gray-300 p-2">Payment_Status</th>
+
             <th className="border border-gray-300 p-2">Status</th>
             <th className="border border-gray-300 p-2">Actions</th>
           </tr>
@@ -71,6 +73,9 @@ const MyAssignedTours = () => {
                 {new Date(tour.date).toLocaleDateString()}
               </td>
               <td className="border border-gray-300 p-2">${tour.price}</td>
+              <td className="border italic text-emerald-700 font-bold border-gray-300 p-2">{tour.
+                                                            payment_status
+                                                            }</td>
               <td className="border border-gray-300 p-2 capitalize">{tour.status || 'pending'}</td>
               <td className="border border-gray-300 p-2 space-x-2">
                 <button

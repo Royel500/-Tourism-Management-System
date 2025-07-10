@@ -54,6 +54,7 @@ const PendingTourGuides = () => {
         <thead className="bg-gray-100 text-left">
           <tr>
             <th>#</th>
+            <th>Name</th>
             <th>Title</th>
             <th>Reason</th>
             <th>CV</th>
@@ -66,6 +67,7 @@ const PendingTourGuides = () => {
           {pendingGuides.map((guide, index) => (
             <tr key={guide._id}>
               <td>{index + 1}</td>
+              <td>{guide.name}</td>
               <td>{guide.title}</td>
               <td className="max-w-xs truncate">{guide.reason}</td>
               <td>

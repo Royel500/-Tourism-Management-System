@@ -103,7 +103,7 @@ const DasboardLayout = () => {
 
         </>
       }
-      {!roleLoading && (role === 'Tourist' || role === 'admin') && 
+      {!roleLoading && (role === 'Tourist' || role === 'admin' || role === 'guide'  ) && 
       (<>
       
          <li>
@@ -113,7 +113,7 @@ const DasboardLayout = () => {
           </li>
       </>)}
 
-    {!roleLoading && (role === 'guide' || role === 'admin') && (<>
+    {!roleLoading && (role === 'guide' || role === 'admin' ) && (<>
         
          <li>
             <NavLink to="/dasboard/myAssignedTours" className="flex items-center gap-2">

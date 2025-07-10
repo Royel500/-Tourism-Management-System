@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'; // fixed from 'react-router'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'; 
 import GoogleLogIn from './GoogleLogIn';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
