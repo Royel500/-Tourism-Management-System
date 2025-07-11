@@ -38,6 +38,7 @@ const onSubmit = (data) => {
   const fullData = {
     ...data,
     email: user?.email,
+    photo:user?.photoURL,
     name: user?.displayName,
   };
   mutation.mutate(fullData);

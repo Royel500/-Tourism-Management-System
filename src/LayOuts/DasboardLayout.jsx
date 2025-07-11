@@ -10,6 +10,7 @@ import {
   FaRegCalendarCheck
 } from 'react-icons/fa';
 import useRole from '../hooks/useRole';
+import ManageStories from './../Components/AddStory/ManageStories';
 
 const DasboardLayout = () => {
   const {role, roleLoading} = useRole();
@@ -56,11 +57,24 @@ const DasboardLayout = () => {
             <NavLink to="/" className="flex items-center gap-2">
               <FaHome className="text-lg" /> Home
             </NavLink>
+           
           </li>
+           <li><NavLink to="/dasboard/addstory">Add  Stories </NavLink></li>
+      
+
+       <li>
         <NavLink to="/dasboard/packages" className="menu-item">
   📦 All Packages
+</NavLink >
+
+        </li>
+        <li>
+            <NavLink to="/dasboard/allStory" className="menu-item">
+       Manage Stories
 </NavLink>
-         
+        </li>
+
+      
         
       { !roleLoading && role === 'admin' &&
         <>
@@ -80,7 +94,8 @@ const DasboardLayout = () => {
           </NavLink>
         </li>
 
-         
+              
+    
           <li>
             <NavLink to="/dasboard/makeAdmin" className="flex items-center gap-2">
            <FaUserClock className="text-lg" />   Admin Page
@@ -103,23 +118,46 @@ const DasboardLayout = () => {
 
         </>
       }
-      {!roleLoading && (role === 'Tourist' || role === 'admin' || role === 'guide'  ) && 
+      {!roleLoading && (role === 'tourist' ) && 
       (<>
-      
          <li>
+            <NavLink to="/dasboard/touristProfile" className="flex items-center gap-2">
+              <FaBoxOpen className="text-lg" />Manage  Profile
+            </NavLink>
+          </li>
+
+      
+         
+        <li>
+            <NavLink to="/dasboard/tourguide" className="menu-item">
+       Join as tour guide
+ </NavLink>
+
+        </li>
+           <li>
             <NavLink to="/dasboard/myBookings" className="flex items-center gap-2">
               <FaBoxOpen className="text-lg" /> My Bookings
             </NavLink>
           </li>
       </>)}
 
-    {!roleLoading && (role === 'guide' || role === 'admin' ) && (<>
+    {!roleLoading && (role === 'guide') && (<>
         
+           <li>
+            <NavLink to="/dasboard/touristProfile" className="flex items-center gap-2">
+              <FaBoxOpen className="text-lg" />Manage  Profile
+            </NavLink>
+          </li>
+
+      
+         
          <li>
             <NavLink to="/dasboard/myAssignedTours" className="flex items-center gap-2">
               <FaBoxOpen className="text-lg" /> My Assigned Tours
             </NavLink>
           </li>
+
+        
         </>
       )}
 

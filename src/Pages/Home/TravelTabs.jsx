@@ -1,5 +1,7 @@
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import AllPackages from '../../Components/Packages/AllPackages';
+import AllGuides from '../../Components/Be A Guide/AllGuide';
 
 
 const TravelTabs = () => {
@@ -12,12 +14,12 @@ const TravelTabs = () => {
           <Tab>Meet Our Tour Guides</Tab>
         </TabList>
 
-        {/* <TabPanel>
-          <Package />
+        <TabPanel>
+          <AllPackages></AllPackages>
         </TabPanel>
         <TabPanel>
-          <GuidesTab />
-        </TabPanel> */}
+          <AllGuides></AllGuides>
+        </TabPanel>
       </Tabs>
     </section>
   );

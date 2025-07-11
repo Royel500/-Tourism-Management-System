@@ -21,12 +21,18 @@ import MakeAdmin from './../Components/RoleSet/MakeAdmin';
 import BookNowForm from '../Components/Packages/BookNowFrom';
 import AddPackage from '../Components/Packages/AddPackage';
 import ManageUsers from '../Components/RoleSet/ManageUsers';
-import ManageProfile from '../Components/RoleSet/ManageProfile';
+import ManageProfile from '../Components/Profile/ManageProfile';
 import AllPackages from '../Components/Packages/AllPackages';
 import MyBookings from '../Components/Booking/MyBookings';
 import Payment from '../Payment/Payment ';
 import MyAssignedTours from '../Components/MyAssignedTours/MyAssignedTours';
 import PackageDetails from '../Components/Packages/PackageDetails';
+import AboutUs from '../Components/StaticInformation/AboutUs';
+import Community from '../Components/AddStory/Community';
+import Package from '../Components/Packages/Package';
+import TouristProfile from '../Components/Profile/TouristProfile';
+import AllGuides from '../Components/Be A Guide/AllGuide';
+import GuideDetails from '../Components/Be A Guide/GuideDetails';
 
 
 
@@ -40,23 +46,33 @@ import PackageDetails from '../Components/Packages/PackageDetails';
             index:true,
             element:<Home></Home>
         },
+
         {
-          path:'addstory',
-          element:<AddStory></AddStory>
+      path:'trips',
+      element:<Package></Package>
         },
         {
-          path:'allStory',
-          element:<ManageStories></ManageStories>
+          path:'allGuide',
+          element:<AllGuides></AllGuides>
         },
-     {
-  path: 'editstory/:id',
-  element: <UpdateStory />
-},
-{
-  path:'tourguide',
-  element:<JoinAsTourGuide></JoinAsTourGuide>
-}
-      
+        {
+          path:'details/:id',
+          element:<GuideDetails></GuideDetails>
+        },
+        {
+          path:'community',
+          element:<Community></Community>
+        },
+          {
+        path: 'editstory/:id',
+        element: <UpdateStory />
+      },
+   
+      {
+        path:'about',
+        element:<AboutUs></AboutUs>
+      }
+            
     ]
   },
   {
@@ -79,6 +95,11 @@ import PackageDetails from '../Components/Packages/PackageDetails';
     <DasboardLayout></DasboardLayout>
   </PrivateRoute>,
   children:[
+      {
+     index:true,
+      element:<AllPackages></AllPackages>
+    },
+    ,
     {
       path:'pendingGuide',
       element:<PendingTourGuides/>
@@ -95,6 +116,10 @@ import PackageDetails from '../Components/Packages/PackageDetails';
       path:'addPackage',
       element:<AddPackage></AddPackage>
     },
+       {
+        path:'tourguide',
+        element:<JoinAsTourGuide></JoinAsTourGuide>
+      },
     {
       path:'manageUsers',
       element:<ManageUsers></ManageUsers>
@@ -102,6 +127,10 @@ import PackageDetails from '../Components/Packages/PackageDetails';
     {
       path:'manageProfile',
       element:<ManageProfile></ManageProfile>
+    },
+    {
+     path:'touristProfile',
+     element:<TouristProfile></TouristProfile>
     },
     {
       path:'packages',
@@ -122,7 +151,17 @@ import PackageDetails from '../Components/Packages/PackageDetails';
     {
       path:'packageDetails/:id',
       element:<PackageDetails></PackageDetails>
-    }
+    },
+       {
+   path:'addstory',
+   element:<AddStory></AddStory>
+        },
+        
+        {
+          path:'allStory',
+          element:<ManageStories></ManageStories>
+        },
+        
 
   ]
 }

@@ -56,7 +56,7 @@ const TouristStorySection = () => {
       </div>
 
       <div className="text-center mt-8">
-        <Link to="/allStory" className="btn btn-primary">
+        <Link to="dasboard/allStory" className="btn btn-primary">
           All Stories
         </Link>
       </div>

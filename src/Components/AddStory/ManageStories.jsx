@@ -51,24 +51,19 @@ const ManageStories = () => {
       <h2 className="text-2xl font-bold mb-6 text-center">All Stories</h2>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {stories.map(story => (
-          <div key={story._id} className="bg-white rounded shadow p-4">
-            <h3 className="text-xl font-semibold mb-2">{story.title}</h3>
-            <p className="text-gray-600 mb-2">{story.text?.slice(0, 100)}...</p>
+          <div key={story._id} className="bg-white space-y-4 rounded shadow p-4">
             <div className="flex gap-2 overflow-x-auto">
-              <img src={story?.imageUrl} alt="Pending" />
-              {/* {story.images?.map((img, idx) => (
-                console.log(story.images),
-
-                <img
-                  key={idx}
-                  src={`data:${img.mimeType};base64,${img.data}`}
-                  alt={img.originalName}
-                  className="w-20 h-20 object-cover rounded"
-                />
-              ))} */}
+              <img 
+              className='h-50 w-auto'
+              src={story?.imageUrl} alt="Pending" />
+            
             </div>
-            <div className="mt-4 flex justify-between">
-              <Link to={`/editstory/${story._id}`} className="btn btn-sm btn-primary">
+                        <h3 className="text-xl font-semibold mb-2">{story.title}</h3>
+
+                        <p className="text-gray-600 mb-2">{story.text?.slice(0, 100)}...</p>
+
+            <div className=" flex justify-between mt-5">
+              <Link to={`/editstory/${story._id}`} className="btn btn-sm px-5 btn-primary">
                 Edit
               </Link>
               <button onClick={() => handleDelete(story._id)} className="btn btn-sm btn-error">
