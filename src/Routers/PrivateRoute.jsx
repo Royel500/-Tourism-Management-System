@@ -1,19 +1,14 @@
 import React from 'react';
 import useAuth from '../hooks/useAuth';
 import { Navigate, useLocation } from 'react-router';
+import Loading from '../ShearCom/Loading';
 
 const PrivateRoute = ({ children }) => {
   const location = useLocation();
   const { user, loading } = useAuth();
 
   if (loading) {
-    return (
-      <div className='text-center justify-center items-center'>
-        <span className="loading loading-bars loading-md"></span>
-        <span className="loading loading-bars loading-lg"></span>
-        <span className="loading loading-bars loading-xl"></span>
-      </div>
-    );
+    return <Loading></Loading>;
   }
 
   if (!user) {

@@ -4,6 +4,7 @@ import useAxiosecure from '../../hooks/useAxiosecure';
 import Swal from 'sweetalert2';
 import useRole from '../../hooks/useRole';
 import { updateProfile } from 'firebase/auth';
+import Loading from '../../ShearCom/Loading';
 
 const TouristProfile = () => {
   const { user } = useAuth();
@@ -61,7 +62,7 @@ const TouristProfile = () => {
     }
   };
 
-  if (loading) return <p className="text-center">Loading profile...</p>;
+  if (loading) return <Loading></Loading>
 
   return (
     <div className="max-w-xl mx-auto p-6 bg-white shadow rounded">

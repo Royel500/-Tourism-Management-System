@@ -1,7 +1,8 @@
 import React from 'react';
 import useAuth from '../hooks/useAuth';
 import useRole from '../hooks/useRole';
-import { Navigate, useNavigate } from 'react-router';
+import { Navigate } from 'react-router';
+import Loading from '../ShearCom/Loading';
 
 const AdminRoute = ({children}) => {
     const {user,loading} = useAuth();
@@ -9,7 +10,7 @@ const AdminRoute = ({children}) => {
 
     if(loading ||roleLoading ){
 
-        return <span>Loading......... </span>
+        return <Loading></Loading>;
     }
 
     if(!user || role !== 'admin' ){

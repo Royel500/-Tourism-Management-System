@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import useAuth from '../../hooks/useAuth';
 import useAxiosecure from '../../hooks/useAxiosecure';
+import Loading from '../../ShearCom/Loading';
 
 const MyAssignedTours = () => {
   const { user } = useAuth();
@@ -44,7 +45,7 @@ const MyAssignedTours = () => {
     });
   };
 
-  if (isLoading) return <div>Loading assigned tours...</div>;
+  if (isLoading) return <Loading></Loading>;
   if (error) return <div>Error loading tours: {error.message}</div>;
   if (tours.length === 0) return <div>No assigned tours found.</div>;
 
@@ -59,7 +60,6 @@ const MyAssignedTours = () => {
             <th className="border border-gray-300 p-2">Tour Date</th>
             <th className="border border-gray-300 p-2">Price</th>
             <th className="border border-gray-300 p-2">Payment_Status</th>
-
             <th className="border border-gray-300 p-2">Status</th>
             <th className="border border-gray-300 p-2">Actions</th>
           </tr>
@@ -76,39 +76,34 @@ const MyAssignedTours = () => {
               <td className="border italic text-emerald-700 font-bold border-gray-300 p-2">{tour.
                                                             payment_status
                                                             }</td>
-              <td className="border border-gray-300 p-2 capitalize">{tour.status || 'pending'}</td>
-              <td className="border border-gray-300 p-2 space-x-2">
-                <button
-                  onClick={() => updateStatus(tour._id, 'accepted')}
-                  disabled={
-                    tour.status === 'pending' ||
-                    tour.status === 'accepted' ||
-                    tour.status === 'rejected'
-                  }
-                  className={`px-3 py-1 rounded text-white ${
-                    tour.status === 'in-review'
-                      ? 'bg-green-600 hover:bg-green-700 cursor-pointer'
-                      : 'bg-gray-400 cursor-not-allowed'
-                  }`}
-                  title={
-                    tour.status === 'pending'
-                      ? 'Accept disabled while pending'
-                      : tour.status === 'accepted'
-                      ? 'Already accepted'
-                      : tour.status === 'rejected'
-                      ? 'Tour rejected'
-                      : ''
-                  }
-                >
-                  Accept
-                </button>
+              <td className="border border-gray-300 p-2 ">{tour.status || 'pending'}</td>
+             <td className="border flex border-gray-300   p-2 space-x-2">
 
-                {(tour.status === 'pending' || tour.status === 'in-review') && (
-                 <button
+  {/* Accept Button */}
+{/* Accept Button */}
+<button
+  onClick={() => updateStatus(tour._id, 'accepted')}
+  disabled={tour.status !== 'In Review'} // ✅ Only enabled if in-review
+  className={`px-3 py-1 rounded text-white transition ${
+    tour.status === 'In Review'
+      ? 'bg-green-600 hover:bg-green-700 cursor-pointer'
+      : 'bg-gray-400 cursor-not-allowed'
+  }`}
+  title={
+    tour.status !== 'In Review'
+      ? 'Accept allowed only during In Review'
+      : ''
+  }
+>
+  Accept
+</button>
+
+{/* Reject Button */}
+<button
   onClick={() => handleReject(tour._id)}
-  disabled={tour.status === 'accepted' || tour.status === 'rejected'}
-  className={`px-3 py-1 rounded text-white ${
-    tour.status === 'pending' || tour.status === 'in-review'
+  disabled={tour.status !== 'pending'} // ✅ Only enabled if pending
+  className={`px-3 py-1 rounded text-white transition ${
+    tour.status === 'pending'
       ? 'bg-red-600 hover:bg-red-700 cursor-pointer'
       : 'bg-gray-400 cursor-not-allowed'
   }`}
@@ -117,14 +112,16 @@ const MyAssignedTours = () => {
       ? 'Already accepted'
       : tour.status === 'rejected'
       ? 'Already rejected'
+      : tour.status === 'In Review'
+      ? 'Reject not allowed in Review'
       : ''
   }
 >
   Reject
 </button>
 
-                )}
-              </td>
+</td>
+
             </tr>
           ))}
         </tbody>

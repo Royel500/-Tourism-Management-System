@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import useAuth from '../../hooks/useAuth';
 import useAxiosecure from '../../hooks/useAxiosecure';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../ShearCom/Loading';
 
 const MyBookings = () => {
   const { user } = useAuth();
@@ -58,7 +59,7 @@ const MyBookings = () => {
     }
   };
 
-  if (isLoading) return <div className="text-center my-10">Loading...</div>;
+  if (isLoading) return <Loading></Loading>;
 
   return (
     <div className="p-6 overflow-x-auto">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosecure from '../../hooks/useAxiosecure';
 import Select from 'react-select';
+import Loading from '../../ShearCom/Loading';
 
 const roleOptions = [
   { value: 'all', label: 'All Roles' },
@@ -47,7 +48,7 @@ const ManageUsers = () => {
       </div>
 
       {isLoading ? (
-        <div>Loading...</div>
+        <Loading></Loading>
       ) : (
         <div className="overflow-x-auto">
           <table className="table w-full">
@@ -56,8 +57,9 @@ const ManageUsers = () => {
                 <th>#</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Create at</th>
+          
                 <th>Role</th>
+                      <th>Create at</th>
               </tr>
             </thead>
             <tbody>
@@ -66,9 +68,10 @@ const ManageUsers = () => {
                   <td>{idx + 1}</td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
+                   <td className='text-green-700 font-bold italic'>{user.role || 'tourist'}</td>
                   <td>{user.createdAt}</td>
 
-                  <td className='text-green-700 font-bold italic'>{user.role || 'user'}</td>
+                 
                 </tr>
               ))}
             </tbody>

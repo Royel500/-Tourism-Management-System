@@ -33,6 +33,9 @@ import Package from '../Components/Packages/Package';
 import TouristProfile from '../Components/Profile/TouristProfile';
 import AllGuides from '../Components/Be A Guide/AllGuide';
 import GuideDetails from '../Components/Be A Guide/GuideDetails';
+import Loading from '../ShearCom/Loading';
+import PaymentHistory from '../Payment/PaymentHistory';
+import AdminPaymentHistory from '../Payment/AdminPaymentHistory';
 
 
 
@@ -41,6 +44,7 @@ import GuideDetails from '../Components/Be A Guide/GuideDetails';
   {
     path: "/",
     element: <RootLayout></RootLayout>,
+    hydrateFallbackElement:<Loading></Loading>,
     children:[
         {
             index:true,
@@ -78,6 +82,7 @@ import GuideDetails from '../Components/Be A Guide/GuideDetails';
   {
     path:'/',
     element:<AuthLAyOut></AuthLAyOut>,
+     hydrateFallbackElement:<Loading></Loading>,
     children:[
       {
         path:'/login',
@@ -93,13 +98,15 @@ import GuideDetails from '../Components/Be A Guide/GuideDetails';
   path:'/dasboard',
   element:<PrivateRoute>
     <DasboardLayout></DasboardLayout>
+    
   </PrivateRoute>,
+   hydrateFallbackElement:<Loading></Loading>,
   children:[
       {
      index:true,
       element:<AllPackages></AllPackages>
     },
-    ,
+    
     {
       path:'pendingGuide',
       element:<PendingTourGuides/>
@@ -143,6 +150,14 @@ import GuideDetails from '../Components/Be A Guide/GuideDetails';
     {
       path:'payment/:bookingId',
       element:<Payment></Payment>
+    },
+    {
+    path:'paymentHistory',
+    element:<PaymentHistory></PaymentHistory>
+    },
+    {
+    path:'adminPaymentHistory',
+    element:<AdminPaymentHistory></AdminPaymentHistory>
     },
     {
       path:'myAssignedTours',

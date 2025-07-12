@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fa';
 import useRole from '../hooks/useRole';
 import ManageStories from './../Components/AddStory/ManageStories';
+import PaymentHistory from './../Payment/PaymentHistory';
 
 const DasboardLayout = () => {
   const {role, roleLoading} = useRole();
@@ -83,11 +84,13 @@ const DasboardLayout = () => {
             <FaRegCalendarCheck className="text-lg" /> Manage Profile
           </NavLink>
         </li>
-                {/* <li>
-          <NavLink to="/dasboard/book" className="flex items-center gap-2">
-            <FaRegCalendarCheck className="text-lg" /> Book Now
+           
+                 <li>
+          <NavLink to="/dasboard/adminPaymentHistory" className="flex items-center gap-2">
+            <FaRegCalendarCheck className="text-lg" />Payment History
           </NavLink>
-        </li> */}
+        </li>
+        
                 <li>
           <NavLink to="/dasboard/addPackage" className="flex items-center gap-2">
             <FaRegCalendarCheck className="text-lg" /> Add Package
@@ -127,7 +130,12 @@ const DasboardLayout = () => {
           </li>
 
       
-         
+              <li>
+          <NavLink to="/dasboard/paymentHistory" className="flex items-center gap-2">
+            <FaRegCalendarCheck className="text-lg" />Payment History
+          </NavLink>
+        </li>
+
         <li>
             <NavLink to="/dasboard/tourguide" className="menu-item">
        Join as tour guide

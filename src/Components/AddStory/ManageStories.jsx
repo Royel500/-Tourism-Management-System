@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import useAxiosecure from '../../hooks/useAxiosecure';
+import Loading from '../../ShearCom/Loading';
 
 const ManageStories = () => {
   const { user } = useAuth();
@@ -44,7 +45,7 @@ const ManageStories = () => {
     });
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading></Loading>;
 
   return (
     <div className="p-6">

@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosecure from '../../hooks/useAxiosecure';
+import Loading from '../../ShearCom/Loading';
 
 const PackageDetails = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const PackageDetails = () => {
     enabled: !!id,
   });
 
-  if (isLoading) return <p className="text-center">Loading package details...</p>;
+  if (isLoading) return <Loading></Loading>;
   if (isError || !pkg?._id) return <p className="text-center text-red-500">Failed to load package details.</p>;
 
   return (

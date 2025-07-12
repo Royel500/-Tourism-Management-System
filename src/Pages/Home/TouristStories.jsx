@@ -4,6 +4,7 @@ import { FacebookShareButton, FacebookIcon } from 'react-share';
 import { Link, useNavigate } from 'react-router-dom';
 import useAxiosecure from '../../hooks/useAxiosecure';
 import useAuth from '../../hooks/useAuth';
+import Loading from '../../ShearCom/Loading';
 
 const TouristStorySection = () => {
   const axiosSecure = useAxiosecure();
@@ -20,7 +21,7 @@ const TouristStorySection = () => {
     },
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading></Loading>;
 
   return (
     <div className="py-10 px-4 max-w-6xl mx-auto">

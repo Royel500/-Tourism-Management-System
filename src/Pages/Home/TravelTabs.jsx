@@ -2,6 +2,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import AllPackages from '../../Components/Packages/AllPackages';
 import AllGuides from '../../Components/Be A Guide/AllGuide';
+import HomePackage from '../../Components/Packages/HomaPackage';
 
 
 const TravelTabs = () => {
@@ -15,7 +16,7 @@ const TravelTabs = () => {
         </TabList>
 
         <TabPanel>
-          <AllPackages></AllPackages>
+          <HomePackage></HomePackage>
         </TabPanel>
         <TabPanel>
           <AllGuides></AllGuides>

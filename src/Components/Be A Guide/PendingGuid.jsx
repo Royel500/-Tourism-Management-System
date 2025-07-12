@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useAxiosecure from '../../hooks/useAxiosecure';
 import Swal from 'sweetalert2';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import Loading from '../../ShearCom/Loading';
 
 const PendingTourGuides = () => {
   const axiosSecure = useAxiosecure();
@@ -45,7 +46,7 @@ const PendingTourGuides = () => {
     });
   };
 
-  if (isLoading) return <div className="text-center py-10">Loading...</div>;
+  if (isLoading) return <Loading></Loading>;
 
   return (
     <div className="overflow-x-auto p-4">
@@ -69,7 +70,7 @@ const PendingTourGuides = () => {
               <td>{index + 1}</td>
               <td>{guide.name}</td>
               <td>{guide.title}</td>
-              <td className="max-w-xs truncate">{guide.reason}</td>
+              <td className="max-w-50 truncate">{guide.reason}</td>
               <td>
                 <a
                   href={guide.cvLink}
@@ -77,11 +78,11 @@ const PendingTourGuides = () => {
                   rel="noopener noreferrer"
                   className="text-blue-600 underline"
                 >
-                  View CV
+                  ViewCV
                 </a>
               </td>
               <td>{new Date(guide.createdAt).toLocaleString()}</td>
-              <td>{guide.status}</td>
+              <td className='font-bold text-red-700 italic'>{guide.status}</td>
               <td className="flex gap-2">
                 <button
                   onClick={() => handleStatusChange(guide._id, 'accepted')}

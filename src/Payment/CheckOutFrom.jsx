@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useAuth from '../hooks/useAuth';
 import useAxiosecure from '../hooks/useAxiosecure';
+import Loading from '../ShearCom/Loading';
 
 const CheckOutForm = () => {
   const stripe = useStripe();
@@ -117,7 +118,7 @@ const CheckOutForm = () => {
   };
 
   if (isPending) {
-    return <div className="text-center">Loading...</div>;
+    return <Loading></Loading>;
   }
 
   if (!booking || !booking._id) {

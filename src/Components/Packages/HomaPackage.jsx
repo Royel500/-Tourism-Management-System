@@ -1,23 +1,26 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useAxiosecure from '../../hooks/useAxiosecure';
 import Loading from '../../ShearCom/Loading';
+import { Link } from 'react-router-dom';
 
-const AllPackages = () => {
+const HomePackage = () => {
   const axiosSecure = useAxiosecure();
-  const navigate = useNavigate();
 
-  const { data: packages = [], isLoading, isError } = useQuery({
-    queryKey: ['packages'],
-    queryFn: async () => {
-      const res = await axiosSecure.get('/api/packages');
-      return res.data;
-    },
-  });
+const { data: packages = [], isLoading } = useQuery({
+  queryKey: ['randomPackages'],
+  queryFn: async () => {
+    const res = await axiosSecure.get('/api/packages/random');
+     const allStories = res.data;
+     return allStories.sort(() => 0.5 - Math.random()).slice(0, 4);
+  },
+  refetchOnWindowFocus: true,
+  cacheTime: 0,
+  staleTime: 0
+});
 
-  if (isLoading) return <Loading></Loading>;
-  if (isError) return <p className="text-center text-red-500">Failed to load packages.</p>;
+
+  if (isLoading) return <Loading />;
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
@@ -68,4 +71,4 @@ const AllPackages = () => {
   );
 };
 
-export default AllPackages;
+export default HomePackage;

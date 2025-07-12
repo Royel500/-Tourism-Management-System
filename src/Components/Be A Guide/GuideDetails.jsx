@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxiosecure from '../../hooks/useAxiosecure';
+import Loading from '../../ShearCom/Loading';
 
 const GuideDetails = () => {
   const { id } = useParams();
@@ -23,7 +24,7 @@ const GuideDetails = () => {
     fetchGuide();
   }, [id, axiosSecure]);
 
-  if (loading) return <p className="text-center">Loading guide details...</p>;
+  if (loading) return <Loading></Loading>;
   if (!guide) return <p className="text-center text-red-500">Guide not found.</p>;
 
   return (

@@ -7,6 +7,7 @@ import { updateProfile } from 'firebase/auth';
 import GoogleLogIn from './GoogleLogIn';
 import axios from 'axios';
 import useAxios from '../../hooks/useAxios'; // your axios hook
+import Loading from '../../ShearCom/Loading';
 
 const Register = () => {
   const { handleSubmit, register, formState: { errors } } = useForm();
@@ -122,7 +123,7 @@ const Register = () => {
               onChange={handleImageUpload}
               className="file-input file-input-bordered w-full"
             />
-            {uploading && <p className="text-blue-500">Uploading...</p>}
+            {uploading && <Loading></Loading>}
 
             <button type="submit" className="btn btn-neutral mt-4 w-full">Register</button>
 

@@ -1,32 +1,30 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosecure from '../hooks/useAxiosecure';
-import useAuth from '../hooks/useAuth';
 import Loading from '../ShearCom/Loading';
-import Payment from './Payment ';
 
-const PaymentHistory = () => {
+const AdminPaymentHistory = () => {
   const axiosSecure = useAxiosecure();
-  const { user } = useAuth();
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   const { data: payments = [], isLoading } = useQuery({
-    queryKey: ['payments', user.email],
+    queryKey: ['payments'],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/payments?email=${user?.email}`);
+      const res = await axiosSecure.get(`/paymentsall`);
       return res.data;
     }
   });
 
-  if (isLoading) return <Loading />;
-
   const totalPages = Math.ceil(payments.length / itemsPerPage);
+
+  // Slice data for current page
   const paginatedPayments = payments.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  if (isLoading) return <Loading />;
 
   return (
     <div className="max-w-6xl mx-auto my-16 p-6 bg-white shadow rounded-lg">
@@ -43,9 +41,8 @@ const PaymentHistory = () => {
                   <th>#</th>
                   <th>Package ID</th>
                   <th>Amount ($)</th>
-                  <th className='scroll-auto w-10'>Transaction ID</th>
-                  <th className=''>Status</th>
-                  <th>Payment_Status</th>
+                  <th>Transaction ID</th>
+                  <th>Status</th>
                   <th>Date</th>
                 </tr>
               </thead>
@@ -53,24 +50,15 @@ const PaymentHistory = () => {
                 {paginatedPayments.map((payment, index) => (
                   <tr key={payment._id} className="hover:bg-gray-50">
                     <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                  <td className="max-w-[80px] overflow-x-hidden mx-2">
-                      <div className="w-[80px] ">
-                        {payment.bookingId}
-                      </div>
+                    <td className="max-w-[160px] overflow-x-auto whitespace-nowrap">
+                      <div className="w-[160px] overflow-x-auto">{payment.bookingId}</div>
                     </td>
-                         <td>${payment.amount}</td>
-            <td className="max-w-[120px] overflow-x-hidden mx-2">
-              <div className="w-[120px]  ">
-                {payment.transactionId}
-              </div>
-            </td>                    <td className='text-fuchsia-700 italic font-bold'>
-                   {payment.status}
-                   
+                    <td>${payment.amount}</td>
+                    <td className="max-w-[160px] overflow-x-auto whitespace-nowrap">
+                      <div className="w-[160px] overflow-x-auto">{payment.transactionId}</div>
                     </td>
-                       <td className={`font-bold  italic text-green-800 `}>
-                      {
-                        payment.payment_status
-                      }
+                    <td>
+                      <span className="badge badge-success">{payment.payment_status}</span>
                     </td>
                     <td>{new Date(payment.date).toLocaleDateString()}</td>
                   </tr>
@@ -107,4 +95,4 @@ const PaymentHistory = () => {
   );
 };
 
-export default PaymentHistory;
+export default AdminPaymentHistory;

@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useAxiosecure from '../../hooks/useAxiosecure';
 import axios from 'axios';
+import Loading from '../../ShearCom/Loading';
 
 const UpdateStory = () => {
   const { id } = useParams();
@@ -75,7 +76,7 @@ const UpdateStory = () => {
     });
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading></Loading>;
 
   return (
     <div className="max-w-xl mx-auto p-6 bg-white shadow rounded">
