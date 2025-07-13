@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useAxiosecure from '../../hooks/useAxiosecure';
 import Swal from 'sweetalert2';
@@ -8,17 +8,17 @@ import Loading from '../../ShearCom/Loading';
 const PendingTourGuides = () => {
   const axiosSecure = useAxiosecure();
   const queryClient = useQueryClient();
+  const [page, setPage] = useState(1);
+  const limit = 5;
 
-  // Fetch pending applications
-  const { data: pendingGuides = [], isLoading } = useQuery({
-    queryKey: ['pendingGuides'],
+  const { data, isLoading } = useQuery({
+    queryKey: ['pendingGuides', page],
     queryFn: async () => {
-      const res = await axiosSecure.get('/api/tour-guides/pending');
+      const res = await axiosSecure.get(`/api/tour-guides/pending?page=${page}&limit=${limit}`);
       return res.data;
     }
   });
 
-  // Accept/Reject mutation
   const mutation = useMutation({
     mutationFn: async ({ id, status }) => {
       const res = await axiosSecure.patch(`/api/tour-guides/status/${id}`, { status });
@@ -46,11 +46,14 @@ const PendingTourGuides = () => {
     });
   };
 
-  if (isLoading) return <Loading></Loading>;
+  if (isLoading) return <Loading />;
+
+  const { guides, totalPages } = data;
 
   return (
     <div className="overflow-x-auto p-4">
       <h2 className="text-2xl font-bold mb-4 text-center">Pending Tour Guide Applications</h2>
+
       <table className="table w-full table-zebra">
         <thead className="bg-gray-100 text-left">
           <tr>
@@ -65,9 +68,9 @@ const PendingTourGuides = () => {
           </tr>
         </thead>
         <tbody>
-          {pendingGuides.map((guide, index) => (
+          {guides.map((guide, index) => (
             <tr key={guide._id}>
-              <td>{index + 1}</td>
+              <td>{(page - 1) * limit + index + 1}</td>
               <td>{guide.name}</td>
               <td>{guide.title}</td>
               <td className="max-w-50 truncate">{guide.reason}</td>
@@ -103,6 +106,33 @@ const PendingTourGuides = () => {
           ))}
         </tbody>
       </table>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-6 gap-2">
+        <button
+          className="btn btn-sm"
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          disabled={page === 1}
+        >
+          Prev
+        </button>
+        {[...Array(totalPages).keys()].map((i) => (
+          <button
+            key={i}
+            onClick={() => setPage(i + 1)}
+            className={`btn btn-sm ${page === i + 1 ? 'btn-primary' : 'btn-outline'}`}
+          >
+            {i + 1}
+          </button>
+        ))}
+        <button
+          className="btn btn-sm"
+          onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={page === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

@@ -3,8 +3,6 @@ import { NavLink, Outlet } from 'react-router';
 import { FaHome, FaPlus, FaBoxOpen, FaUserShield, FaRegCalendarCheck, FaUserClock, FaUserPlus, FaHistory, FaUser, FaClipboardList } from "react-icons/fa";
 
 import useRole from '../hooks/useRole';
-import ManageStories from './../Components/AddStory/ManageStories';
-import PaymentHistory from './../Payment/PaymentHistory';
 
 const DasboardLayout = () => {
   const {role, roleLoading} = useRole();
@@ -139,7 +137,7 @@ const DasboardLayout = () => {
     </>
   )}
 
-  {!roleLoading && role === 'guide' && (
+   {!roleLoading && role === 'guide' && (
     <>
       <li>
         <NavLink to="/dasboard/touristProfile" className="flex items-center gap-2">
@@ -154,6 +152,7 @@ const DasboardLayout = () => {
       </li>
     </>
   )}
+
 </ul>
 
       </div>

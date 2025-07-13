@@ -10,17 +10,17 @@ const ExtraSections = () => {
         <div className="grid md:grid-cols-3 gap-6">
           {/* Sample Cards */}
           <div className="bg-white rounded shadow p-4 text-center">
-            <img src="https://source.unsplash.com/400x250/?paris,travel" alt="Paris" className="w-full h-48 object-cover rounded mb-3" />
+            <img src="https://i.postimg.cc/Hk2w6dvS/france-paris-eiffel-tower.jpg" alt="Paris" className="w-full h-48 object-cover rounded mb-3" />
             <h3 className="text-xl font-semibold">Paris, France</h3>
             <p className="text-gray-600">Experience the City of Light with guided tours, cuisine, and romance.</p>
           </div>
           <div className="bg-white rounded shadow p-4 text-center">
-            <img src="https://source.unsplash.com/400x250/?bali,beach" alt="Bali" className="w-full h-48 object-cover rounded mb-3" />
+            <img src="https://i.postimg.cc/8k6Lqhnf/maxresdefault.jpg" alt="Bali" className="w-full h-48 object-cover rounded mb-3" />
             <h3 className="text-xl font-semibold">Bali, Indonesia</h3>
             <p className="text-gray-600">Tropical paradise with culture, nature, and serene beaches.</p>
           </div>
           <div className="bg-white rounded shadow p-4 text-center">
-            <img src="https://source.unsplash.com/400x250/?newyork,city" alt="New York" className="w-full h-48 object-cover rounded mb-3" />
+            <img src="https://i.postimg.cc/bNF8ktpL/new-york-ss-57571180-1119x630.jpg" alt="New York" className="w-full h-48 object-cover rounded mb-3" />
             <h3 className="text-xl font-semibold">New York, USA</h3>
             <p className="text-gray-600">Explore the iconic skyline, Broadway shows, and vibrant streets.</p>
           </div>
