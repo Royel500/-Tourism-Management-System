@@ -2,28 +2,32 @@ import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import useAxiosecure from '../../hooks/useAxiosecure';
 
+const ITEMS_PER_PAGE = 10;
+
 const MakeAdmin = () => {
   const axiosSecure = useAxiosecure();
   const [users, setUsers] = useState([]);
   const [searchEmail, setSearchEmail] = useState('');
   const [filteredUser, setFilteredUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalUsers, setTotalUsers] = useState(0);
 
-  // Load all users on mount
+  const fetchUsers = async (page = 1) => {
+    try {
+      const res = await axiosSecure.get(`/api/users?page=${page}&limit=${ITEMS_PER_PAGE}`);
+      setUsers(res.data.users || []);
+      setTotalUsers(res.data.totalUsers || 0);
+    } catch (error) {
+      console.error(error);
+      Swal.fire('Error', 'Failed to fetch users.', 'error');
+    }
+  };
+
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await axiosSecure.get('/api/users');
-        setUsers(res.data || []);
-      } catch (error) {
-        console.error(error);
-        Swal.fire('Error', 'Failed to fetch users.', 'error');
-      }
-    };
-    fetchUsers();
-  }, [axiosSecure]);
+    fetchUsers(currentPage);
+  }, [axiosSecure, currentPage]);
 
-  // Handle user search
   const handleSearch = async () => {
     setLoading(true);
     try {
@@ -42,7 +46,6 @@ const MakeAdmin = () => {
     }
   };
 
-  // Handle role change with confirmation
   const handleRoleChange = async (email, newRole) => {
     const confirmText = newRole === 'admin' ? 'Make this user an admin?' : 'Remove admin role?';
 
@@ -60,7 +63,7 @@ const MakeAdmin = () => {
 
         if (res.data.success) {
           Swal.fire('Success', res.data.message, 'success');
-          setUsers(prev => prev.map(user => user.email === email ? { ...user, role: newRole } : user));
+          fetchUsers(currentPage); // Refresh list
           if (filteredUser?.email === email) {
             setFilteredUser({ ...filteredUser, role: newRole });
           }
@@ -73,10 +76,9 @@ const MakeAdmin = () => {
     }
   };
 
-  // Display user table rows
   const renderUserRow = (user, index) => (
     <tr key={user._id || index}>
-      <td className="p-2">{index + 1}</td>
+      <td className="p-2">{(currentPage - 1) * ITEMS_PER_PAGE + index + 1}</td>
       <td className="p-2">{user.name}</td>
       <td className="p-2">{user.email}</td>
       <td className="p-2 capitalize">{user.role}</td>
@@ -101,11 +103,12 @@ const MakeAdmin = () => {
     </tr>
   );
 
+  const totalPages = Math.ceil(totalUsers / ITEMS_PER_PAGE);
+
   return (
     <div className="p-4 max-w-6xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">Manage User Roles</h2>
 
-      {/* Search input */}
       <div className="flex gap-2 mb-6">
         <input
           type="email"
@@ -123,7 +126,7 @@ const MakeAdmin = () => {
         </button>
       </div>
 
-      {/* Show filtered user if searched */}
+      {/* Filtered User */}
       {filteredUser ? (
         <div className="overflow-x-auto border rounded-lg">
           <table className="table w-full text-sm">
@@ -137,14 +140,11 @@ const MakeAdmin = () => {
                 <th className="p-2">Action</th>
               </tr>
             </thead>
-            <tbody>
-              {renderUserRow(filteredUser, 0)}
-            </tbody>
+            <tbody>{renderUserRow(filteredUser, 0)}</tbody>
           </table>
         </div>
       ) : (
         <>
-          {/* Show all users */}
           <div className="overflow-x-auto border rounded-lg">
             <table className="table w-full text-sm">
               <thead className="bg-base-200">
@@ -157,10 +157,35 @@ const MakeAdmin = () => {
                   <th className="p-2">Action</th>
                 </tr>
               </thead>
-              <tbody>
-                {users.map((user, idx) => renderUserRow(user, idx))}
-              </tbody>
+              <tbody>{users.map((user, idx) => renderUserRow(user, idx))}</tbody>
             </table>
+          </div>
+
+          {/* Pagination Controls */}
+          <div className="flex justify-center mt-6 gap-2">
+            <button
+              className="btn btn-sm"
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+            >
+              Prev
+            </button>
+            {[...Array(totalPages).keys()].map((_, index) => (
+              <button
+                key={index}
+                className={`btn btn-sm ${currentPage === index + 1 ? 'btn-primary' : 'btn-outline'}`}
+                onClick={() => setCurrentPage(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+            <button
+              className="btn btn-sm"
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
+              Next
+            </button>
           </div>
         </>
       )}
