@@ -103,7 +103,7 @@ const CheckOutForm = () => {
           await axiosSecure.patch(`/api/bookings/${bookingId}`, {
             payment_status: 'paid',
           });
-          console.log('Booking status updated successfully.');
+          // console.log('Booking status updated successfully.');
         } catch (patchError) {
           console.warn('Failed to update booking status:', patchError);
           // Optionally, you can show a warning here or ignore

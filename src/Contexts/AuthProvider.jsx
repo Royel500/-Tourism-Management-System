@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '../FireBase/FireBase_Auth';
+import useAxios from './../hooks/useAxios';
+import axios from 'axios';
 
 const AuthProvider = ({children}) => {
 const [user,setUser] = useState(null);
@@ -45,17 +47,26 @@ const googleMama = () =>{
       return signOut(auth);
     }
 
-useEffect( ()=>{
-    const unsubscribe = onAuthStateChanged(auth,currentUser =>{
-        
+useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
         setUser(currentUser);
-        console.log('user is here on authProvider' , currentUser)
+
+        if (currentUser) {
+            const token = await currentUser.getIdToken(true); // get fresh Firebase token
+            localStorage.setItem('access-token', token);     // ✅ store in localStorage
+        } else {
+            localStorage.removeItem('access-token');         // remove token on logout
+        }
+
+        // console.log('user is here on authProvider', currentUser);
         setLoading(false);
     });
-    return () =>{
+
+    return () => {
         unsubscribe();
-    }
-},[])
+    };
+}, []);
+
 
     const authInfo = {
            user,

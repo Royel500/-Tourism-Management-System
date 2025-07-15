@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaGithub, FaLinkedin, FaExternalLinkAlt } from 'react-icons/fa';
-import photo from '../../../public/photo.jpg'
+import photo from '/photo.jpg'
 const AboutUs = () => {
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10 space-y-6">

@@ -212,7 +212,7 @@ const PackageDetails = () => {
       <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-xl font-bold text-gray-800">
-            Day {itinerary[activeDay].day}: {itinerary[activeDay].title}
+            Day {itinerary[activeDay].day}: {pkg.title}
           </h3>
           <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
             {itinerary[activeDay].duration}

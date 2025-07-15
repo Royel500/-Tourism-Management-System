@@ -11,7 +11,7 @@ const ManageStories = () => {
   const queryClient = useQueryClient();
   const axiosSecure = useAxiosecure();
 
-  const { data: stories = [], isLoading } = useQuery({
+  const { data: stories = [], isLoading ,isError} = useQuery({
     
   queryKey: ['myStories'],
   queryFn: async () => {
@@ -46,6 +46,9 @@ const ManageStories = () => {
   };
 
   if (isLoading) return <Loading></Loading>;
+    if (isError) return (
+    <p className=" flex items-center justify-center text-red-500">
+      Failed to load packages.Check Your Internate Connection and try again</p>);
 
   return (
     <div className="p-6">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router';
-import authpic from '../../public/images.jpg'
+import authpic from '/images.jpg'
 import Logo from '../ShearCom/Logo';
 const AuthLAyOut = () => {
     return (

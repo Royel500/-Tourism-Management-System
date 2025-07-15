@@ -61,7 +61,7 @@ import AdminPaymentHistory from '../Payment/AdminPaymentHistory';
         },
         {
           path:'details/:id',
-          element:<GuideDetails></GuideDetails>
+          element:<PrivateRoute><GuideDetails></GuideDetails>  </PrivateRoute>
         },
         {
           path:'community',
@@ -69,7 +69,7 @@ import AdminPaymentHistory from '../Payment/AdminPaymentHistory';
         },
           {
         path: 'editstory/:id',
-        element: <UpdateStory />
+        element: <PrivateRoute>  <UpdateStory /> </PrivateRoute> 
       },
    
       {

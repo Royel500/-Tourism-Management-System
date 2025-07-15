@@ -1,20 +1,21 @@
 import axios from 'axios';
-import React from 'react';
-import useAuth from './useAuth';
 
 const axiosSecure = axios.create({
-    baseURL:`http://localhost:3500`
-})
-const useAxiosecure = () => {
-    const {user} =useAuth();
-    axiosSecure.interceptors.request.use(config =>{
-        config.headers.Authorization = `Bearer ${user?.accessToken}`
-        return config;
+    baseURL: `https://assignment-12-server-indol-ten.vercel.app`
+});
 
-    }, error =>{
-           return Promise.reject(error);
-    })
-    return axiosSecure ;
+const useAxiosecure = () => {
+    axiosSecure.interceptors.request.use(config => {
+        const token = localStorage.getItem('access-token');  // ✅ Fetch token from localStorage
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    }, error => {
+        return Promise.reject(error);
+    });
+
+    return axiosSecure;
 };
 
 export default useAxiosecure;

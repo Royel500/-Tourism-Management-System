@@ -17,7 +17,7 @@ const AllPackages = () => {
   });
 
   if (isLoading) return <Loading></Loading>;
-  if (isError) return <p className="text-center text-red-500">Failed to load packages.</p>;
+  if (isError) return <p className="text-center text-red-500">Failed to load packages.Check Your Internate Connection and try again</p>;
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
