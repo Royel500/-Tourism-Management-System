@@ -3,6 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useAxiosecure from '../../hooks/useAxiosecure';
 import Loading from '../../ShearCom/Loading';
+import { motion } from 'framer-motion';
+import { Typewriter } from 'react-simple-typewriter';
+
 
 const AllPackages = () => {
   const axiosSecure = useAxiosecure();
@@ -21,8 +24,23 @@ const AllPackages = () => {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <h2 className="text-3xl font-bold mb-6 text-center">Tour Packages</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+<motion.h2
+  className="text-3xl font-bold italic mb-6 text-center"
+  initial={{ rotate: 0 }}
+  animate={{ rotate: 360 }}
+  transition={{ duration: 3, ease: 'easeInOut' }}
+>
+   <Typewriter
+        words={['   Tour Packages']}
+        loop={0}
+        cursor
+        cursorStyle="_"
+        typeSpeed={90}
+        deleteSpeed={50}
+        delaySpeed={1000}
+      />
+
+</motion.h2>      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {packages.map((pkg) => (
           <div key={pkg._id} className="bg-white rounded-lg shadow p-4 flex flex-col">
             {pkg.images?.length > 0 && (

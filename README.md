@@ -4,7 +4,7 @@
 
 ### 🛠 Admin Credentials:
 
-* **Username (Email):** [suma@gmail.com](mailto:suma@gmail.com)
+* **Username (Email):** suma@gmail.com || rana@gmail.com
 * **Password:** 123456
 
 ### 🔗 Live Website:
@@ -14,6 +14,27 @@
 ---
 
 ## 📌 Key Features:
+1.  🌍 Explore Global Destinations – Discover tours across multiple countries and regions tailored to all travel styles.
+
+2.  🧑‍🏫 Expert Tour Guides – Professional and certified tour guides to enhance your travel experience.
+
+3.  🛒 Easy Booking System – Secure and user-friendly booking process with instant confirmation.
+
+4.  💳 Secure Online Payments – Integrated Stripe payment gateway for safe and reliable transactions.
+
+5.  🎒 Customizable Tour Packages – Build your own travel experience with customizable options.
+
+6.  📊 Admin Dashboard – Powerful admin dashboard to manage tours, guides, bookings, and users easily.
+
+7.  📅 Real-Time Availability – View and book available packages with real-time updates.
+
+8.  📖 Tourist Story Sharing – Tourists can share their travel stories and experiences directly on the platform.
+
+9.  🔒 Firebase Admin Authentication – Role-based login system for tourists, admins, and guides using Firebase.
+
+10. 📱 Responsive Design – Mobile-friendly design ensuring smooth browsing and booking from any device.
+
+
 
 * ✅ **Firebase Authentication** (Email/Password & Google Login)
 * ✅ **Role-Based Dashboards** (Admin, Guide, Tourist)

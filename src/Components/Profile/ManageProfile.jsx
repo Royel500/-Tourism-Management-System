@@ -71,7 +71,6 @@ const updateMutation = useMutation({
           displayName: variables.name,
           photoURL: variables.photoURL,
         });
-        console.log('Firebase profile updated');
       } catch (err) {
         console.error('Firebase profile update failed:', err);
       }
