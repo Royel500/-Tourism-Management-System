@@ -29,7 +29,7 @@ const GoogleLogIn = () => {
         await axiosIns.post('/api/users', userInfo);
 
         Swal.fire({
-          title: "Login Successful!",
+          title: "Welcome To The Website!",
           icon: "success",
           draggable: true
         });

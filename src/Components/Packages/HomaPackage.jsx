@@ -56,7 +56,7 @@ const { data: packages = [], isLoading } = useQuery({
             <div className="mt-auto flex justify-between gap-2">
               <Link
                 to={`/dasboard/packageDetails/${pkg._id}`}
-                className="btn btn-sm btn-outline btn-info w-1/2"
+                className="btn w-full btn-outline btn-info "
               >
                 Details
               </Link>

@@ -53,7 +53,7 @@ const AllPackages = () => {
             <div className="mt-auto flex justify-between gap-2">
               <Link
                 to={`/dasboard/packageDetails/${pkg._id}`}
-                className="btn btn-sm btn-outline btn-info w-1/2"
+                className="btn  btn-outline btn-info w-full"
               >
                 Details
               </Link>

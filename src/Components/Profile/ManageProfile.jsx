@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import { FaDollarSign, FaUserFriends, FaBox, FaUsers, FaBook, FaEdit, FaChartLine, FaTimes } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
 import useAxiosecure from '../../hooks/useAxiosecure';
+import { updateProfile } from 'firebase/auth';  // <-- import this at top
+
 
 const ManageProfile = () => {
   const { user } = useAuth();
@@ -56,29 +58,42 @@ const ManageProfile = () => {
   }, [axiosSecure]);
 
   // Update profile mutation
-  const { register, handleSubmit, reset } = useForm();
-  const updateMutation = useMutation({
-    mutationFn: async (formData) => {
-      return await axiosSecure.patch(`/api/users/${user.email}`, formData);
-    },
-    onSuccess: () => {
-      Swal.fire('Success!', 'Profile updated successfully', 'success');
-      queryClient.invalidateQueries(['admin-stats']);
-      setIsOpen(false);
-    },
-    onError: (error) => {
-      console.error('Update error:', error);
-      Swal.fire('Error', 'Failed to update profile', 'error');
+ const { register, handleSubmit, reset } = useForm();
+const updateMutation = useMutation({
+  mutationFn: async (formData) => {
+    return await axiosSecure.patch(`/api/users/${user.email.toLowerCase()}`, formData);
+  },
+  onSuccess: async (_, variables) => {
+    // variables = formData passed to mutate
+    if (user) {
+      try {
+        await updateProfile(user, {
+          displayName: variables.name,
+          photoURL: variables.photoURL,
+        });
+        console.log('Firebase profile updated');
+      } catch (err) {
+        console.error('Firebase profile update failed:', err);
+      }
     }
-  });
+    Swal.fire('Success!', 'Profile updated successfully', 'success');
+    queryClient.invalidateQueries(['admin-stats']);
+    setIsOpen(false);
+  },
+  onError: (error) => {
+    console.error('Update error:', error);
+    Swal.fire('Error', 'Failed to update profile', 'error');
+  }
+});
 
-  const onSubmit = (data) => {
-    const updateData = {
-      name: data.name,
-      photoURL: data.photoURL,
-    };
-    updateMutation.mutate(updateData);
+const onSubmit = (data) => {
+  const updateData = {
+    name: data.name,
+    photoURL: data.photoURL,
   };
+  updateMutation.mutate(updateData);  // <-- call mutate here
+};
+
 
   const StatCard = ({ title, value, icon, color, loading }) => (
     <div className={`p-5 rounded-xl shadow-md ${color} text-white transition-all duration-300 hover:scale-[1.02]`}>

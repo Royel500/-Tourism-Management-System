@@ -36,6 +36,8 @@ import GuideDetails from '../Components/Be A Guide/GuideDetails';
 import Loading from '../ShearCom/Loading';
 import PaymentHistory from '../Payment/PaymentHistory';
 import AdminPaymentHistory from '../Payment/AdminPaymentHistory';
+import Error from '../ShearCom/Error';
+import AdminRoute from './AdminRoute';
 
 
 
@@ -45,6 +47,7 @@ import AdminPaymentHistory from '../Payment/AdminPaymentHistory';
     path: "/",
     element: <RootLayout></RootLayout>,
     hydrateFallbackElement:<Loading></Loading>,
+      errorElement:<Error></Error>,
     children:[
         {
             index:true,
@@ -83,6 +86,7 @@ import AdminPaymentHistory from '../Payment/AdminPaymentHistory';
     path:'/',
     element:<AuthLAyOut></AuthLAyOut>,
      hydrateFallbackElement:<Loading></Loading>,
+       errorElement:<Error></Error>,
     children:[
       {
         path:'/login',
@@ -101,19 +105,20 @@ import AdminPaymentHistory from '../Payment/AdminPaymentHistory';
     
   </PrivateRoute>,
    hydrateFallbackElement:<Loading></Loading>,
+   errorElement:<Error></Error>,
   children:[
       {
      index:true,
-      element:<AllPackages></AllPackages>
+      element: <AllPackages></AllPackages> 
     },
     
     {
       path:'pendingGuide',
-      element:<PendingTourGuides/>
+      element: <AdminRoute><PendingTourGuides/>   </AdminRoute> 
     },
     {
       path:'makeAdmin',
-      element:<MakeAdmin></MakeAdmin>
+      element:<AdminRoute><MakeAdmin></MakeAdmin> </AdminRoute> 
     },
     {
       path:'book/:id',
@@ -121,7 +126,7 @@ import AdminPaymentHistory from '../Payment/AdminPaymentHistory';
     },
     {
       path:'addPackage',
-      element:<AddPackage></AddPackage>
+      element: <AdminRoute> <AddPackage></AddPackage>  </AdminRoute> 
     },
        {
         path:'tourguide',
@@ -149,7 +154,7 @@ import AdminPaymentHistory from '../Payment/AdminPaymentHistory';
     },
     {
       path:'payment/:bookingId',
-      element:<Payment></Payment>
+      element: <Payment></Payment>
     },
     {
     path:'paymentHistory',
@@ -157,7 +162,7 @@ import AdminPaymentHistory from '../Payment/AdminPaymentHistory';
     },
     {
     path:'adminPaymentHistory',
-    element:<AdminPaymentHistory></AdminPaymentHistory>
+    element:<AdminRoute> <AdminPaymentHistory></AdminPaymentHistory> </AdminRoute> 
     },
     {
       path:'myAssignedTours',
@@ -179,5 +184,9 @@ import AdminPaymentHistory from '../Payment/AdminPaymentHistory';
         
 
   ]
+},
+{
+  path:'/*',
+  errorElement:<Error></Error>
 }
 ]);

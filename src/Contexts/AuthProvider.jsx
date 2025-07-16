@@ -50,6 +50,7 @@ const googleMama = () =>{
 useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
         setUser(currentUser);
+        console.log(currentUser)
 
         if (currentUser) {
             const token = await currentUser.getIdToken(true); // get fresh Firebase token

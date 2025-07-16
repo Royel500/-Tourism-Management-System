@@ -78,7 +78,7 @@ const PackageDetails = () => {
   return (
     <div className="max-w-5xl mx-auto">
       {/* Back Navigation */}
-      <NavLink to="/packages" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-4">
+      <NavLink to="/dasboard/packages" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-4">
         <FaArrowLeft /> Back to Packages
       </NavLink>
       
