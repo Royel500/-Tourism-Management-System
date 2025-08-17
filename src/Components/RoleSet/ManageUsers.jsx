@@ -4,7 +4,6 @@ import useAxiosecure from '../../hooks/useAxiosecure';
 import Select from 'react-select';
 import Loading from '../../ShearCom/Loading';
 import useAuth from '../../hooks/useAuth';
-import useAxios from '../../hooks/useAxios';
 
 // Roles for filter
 const roleOptions = [
@@ -16,55 +15,62 @@ const roleOptions = [
 
 const usersPerPage = 10;
 
-// Hook to track current logged-in user's activity
-const useUserActivity = (email) => {
+// Hook to track user activity and auto-logout on tab close
+const useUserActivity = () => {
+  const { user, logOut } = useAuth();
+  const axiosSecure = useAxiosecure();
 
-  const axioss = useAxios();
   useEffect(() => {
-    if (!email) return;
+    if (!user?.email) return;
 
-    // Send heartbeat every 30 seconds
+    // 1️⃣ Immediately mark user as active
+    axiosSecure.post('/api/users/activity', { email: user.email, isActive: true });
+
+    // 2️⃣ Heartbeat every 30 seconds
     const interval = setInterval(() => {
-      axioss.post('/api/users/activity', { email, isActive: true });
+      axiosSecure.post('/api/users/activity', { email: user.email, isActive: true });
     }, 30000);
 
-    // On tab close or logout, mark offline
-    const handleUnload = () => {
+    // 3️⃣ Auto-logout on tab close / page unload
+    const handleBeforeUnload = (e) => {
       navigator.sendBeacon(
         '/api/users/activity',
-        JSON.stringify({ email, isActive: false })
+        JSON.stringify({ email: user.email, isActive: false })
       );
+      // Optionally clear local storage or tokens here if needed
+      // You cannot reliably call async logOut() here
     };
-    window.addEventListener('beforeunload', handleUnload);
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
       clearInterval(interval);
-      window.removeEventListener('beforeunload', handleUnload);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      // Also mark offline on component unmount
+      axiosSecure.post('/api/users/activity', { email: user.email, isActive: false });
     };
-  }, [email]);
+  }, [user, axiosSecure]);
 };
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosecure();
   const { user } = useAuth();
 
-  // Track current user's activity globally
-  useUserActivity(user?.email);
+  useUserActivity();
 
   const [search, setSearch] = useState('');
   const [selectedRole, setSelectedRole] = useState(roleOptions[0]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Fetch users with live updates every 10s
   const { data = {}, isLoading } = useQuery({
     queryKey: ['users', search, selectedRole.value, currentPage],
     queryFn: async () => {
       const res = await axiosSecure.get(
         `/api/users?search=${search}&role=${selectedRole.value}&page=${currentPage}&limit=${usersPerPage}`
       );
-      return res.data; // { users: [...], totalUsers: 100 }
+      return res.data;
     },
-    refetchInterval: 10000, // refresh every 10s
+    refetchInterval: 10000,
   });
 
   const users = data.users || [];
@@ -102,7 +108,6 @@ const ManageUsers = () => {
         <Loading />
       ) : (
         <>
-          {/* Users Table */}
           <div className="overflow-x-auto">
             <table className="table w-full">
               <thead>
@@ -121,26 +126,19 @@ const ManageUsers = () => {
                     <td>{(currentPage - 1) * usersPerPage + idx + 1}</td>
                     <td>{u.name}</td>
                     <td>{u.email}</td>
-                    <td className="text-green-700 font-bold italic">
-                      {u.role || 'tourist'}
-                    </td>
+                    <td className="text-green-700 font-bold italic">{u.role || 'tourist'}</td>
+                    <td>{u.lastLogout ? new Date(u.lastLogout).toLocaleString() : 'Few Hours'}</td>
                     <td>
-                      {u.lastLogout
-                        ? new Date(u.lastLogout).toLocaleString()
-                        : 'Never'}
+                      <span className={`badge ${u.isActive ? 'badge-success' : 'badge-error'}`}>
+                        {u.isActive ? 'Active' : 'Offline'}
+                      </span>
                     </td>
-                   <td>
-                  <span className={`badge ${u.isActive ? 'badge-success' : 'badge-error'}`}>
-                    {u.isActive ? 'Active' : 'Offline'}
-                  </span>
-                </td>
-                          </tr>
+                  </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          {/* Pagination Controls */}
           <div className="flex justify-center mt-6 gap-2 flex-wrap">
             <button
               className="btn btn-sm"
@@ -153,9 +151,7 @@ const ManageUsers = () => {
             {[...Array(totalPages).keys()].map((page) => (
               <button
                 key={page + 1}
-                className={`btn btn-sm ${
-                  currentPage === page + 1 ? 'btn-primary' : 'btn-outline'
-                }`}
+                className={`btn btn-sm ${currentPage === page + 1 ? 'btn-primary' : 'btn-outline'}`}
                 onClick={() => setCurrentPage(page + 1)}
               >
                 {page + 1}

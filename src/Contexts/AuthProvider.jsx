@@ -52,10 +52,10 @@ useEffect(() => {
         setUser(currentUser);
 
         if (currentUser) {
-            const token = await currentUser.getIdToken(true); // get fresh Firebase token
-            localStorage.setItem('access-token', token);     // ✅ store in localStorage
+            const token = await currentUser.getIdToken(true); 
+            localStorage.setItem('access-token', token);     
         } else {
-            localStorage.removeItem('access-token');         // remove token on logout
+            localStorage.removeItem('access-token');         
         }
 
         // console.log('user is here on authProvider', currentUser);

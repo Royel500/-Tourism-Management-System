@@ -82,7 +82,13 @@ const MakeAdmin = () => {
       <td className="p-2">{user.name}</td>
       <td className="p-2">{user.email}</td>
       <td className="p-2 capitalize">{user.role}</td>
-      <td className="p-2">{new Date(user.createdAt).toLocaleDateString()}</td>
+
+<td className="p-2">
+  {user.lastLogout
+    ? new Date(user.lastLogout).toLocaleDateString()
+    : new Date(user.createdAt).toLocaleDateString()}
+</td>
+
       <td className="p-2 space-x-2">
         {user.role !== 'admin' ? (
           <button

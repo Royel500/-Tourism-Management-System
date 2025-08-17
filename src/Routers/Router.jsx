@@ -38,6 +38,7 @@ import PaymentHistory from '../Payment/PaymentHistory';
 import AdminPaymentHistory from '../Payment/AdminPaymentHistory';
 import Error from '../ShearCom/Error';
 import AdminRoute from './AdminRoute';
+import '../index.css'; // Tailwind CSS
 
 
 
