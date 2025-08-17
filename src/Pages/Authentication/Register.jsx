@@ -8,10 +8,11 @@ import GoogleLogIn from './GoogleLogIn';
 import axios from 'axios';
 import useAxios from '../../hooks/useAxios'; // your axios hook
 import Loading from '../../ShearCom/Loading';
+import useUserActivity from '../../hooks/useUserActivity';
 
 const Register = () => {
   const { handleSubmit, register, formState: { errors } } = useForm();
-  const { createUser } = useAuth();
+  const { user,createUser } = useAuth();
   const navigate = useNavigate();
   const [photoURL, setPhotoURL] = useState('');
   const [uploading, setUploading] = useState(false);
@@ -57,6 +58,8 @@ const Register = () => {
         photoURL: photoURL || '',
       });
 
+
+
       //  Save user to MongoDB backend
       const userInfo = {
         uid: loggedUser.uid,
@@ -68,13 +71,16 @@ const Register = () => {
       };
 
       const userRes = await axiosIns.post('/api/users', userInfo);
-  
+      
       Swal.fire("Account Created!", "Welcome to the platform!", "success");
       navigate('/');
     } catch (err) {
       console.error(err);
+      
       Swal.fire("Registration Failed", err.message || "Something went wrong", "error");
+      
     }
+    useUserActivity(user?.email);
   };
 
   return (

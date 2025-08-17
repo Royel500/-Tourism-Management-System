@@ -4,24 +4,37 @@ import Logo from '../Logo';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import './navbar.css'
+import useAxiosecure from '../../hooks/useAxiosecure';
+
+
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
- 
+   const axiosSecure = useAxiosecure();
+   
+const logOutt = async () => {
+  try {
+    // 1️⃣ Update backend to mark user as offline
+    await axiosSecure.post('/api/auth/logout', {
+      email: user?.email, // get from your auth context or user state
+    });
 
-  const logOutt = () => {
-    logOut()
-      .then(() => {
-        Swal.fire({
-          title: "Logged out successfully!",
-          icon: "success",
-        });
-        navigate('/');
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  };
+    // 2️⃣ Call your existing logOut function (Firebase, etc.)
+    await logOut();
+
+    // 3️⃣ Show success message
+    Swal.fire({
+      title: "Logged out successfully!",
+      icon: "success",
+    });
+
+    // 4️⃣ Redirect to home
+    navigate('/');
+  } catch (error) {
+    console.error(error);
+    alert(error.message);
+  }
+};
 
   const navItems = (
     <>

@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosecure from '../../hooks/useAxiosecure';
 import Select from 'react-select';
 import Loading from '../../ShearCom/Loading';
+import useAuth from '../../hooks/useAuth';
+import useAxios from '../../hooks/useAxios';
 
+// Roles for filter
 const roleOptions = [
   { value: 'all', label: 'All Roles' },
   { value: 'admin', label: 'Admin' },
@@ -13,13 +16,47 @@ const roleOptions = [
 
 const usersPerPage = 10;
 
+// Hook to track current logged-in user's activity
+const useUserActivity = (email) => {
+
+  const axioss = useAxios();
+  useEffect(() => {
+    if (!email) return;
+
+    // Send heartbeat every 30 seconds
+    const interval = setInterval(() => {
+      axioss.post('/api/users/activity', { email, isActive: true });
+    }, 30000);
+
+    // On tab close or logout, mark offline
+    const handleUnload = () => {
+      navigator.sendBeacon(
+        '/api/users/activity',
+        JSON.stringify({ email, isActive: false })
+      );
+    };
+    window.addEventListener('beforeunload', handleUnload);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('beforeunload', handleUnload);
+    };
+  }, [email]);
+};
+
 const ManageUsers = () => {
   const axiosSecure = useAxiosecure();
+  const { user } = useAuth();
+
+  // Track current user's activity globally
+  useUserActivity(user?.email);
+
   const [search, setSearch] = useState('');
   const [selectedRole, setSelectedRole] = useState(roleOptions[0]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data = {}, refetch, isLoading } = useQuery({
+  // Fetch users with live updates every 10s
+  const { data = {}, isLoading } = useQuery({
     queryKey: ['users', search, selectedRole.value, currentPage],
     queryFn: async () => {
       const res = await axiosSecure.get(
@@ -27,6 +64,7 @@ const ManageUsers = () => {
       );
       return res.data; // { users: [...], totalUsers: 100 }
     },
+    refetchInterval: 10000, // refresh every 10s
   });
 
   const users = data.users || [];
@@ -37,6 +75,7 @@ const ManageUsers = () => {
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
 
+      {/* Search & Role Filter */}
       <div className="flex flex-col md:flex-row gap-4 mb-6">
         <input
           type="text"
@@ -63,6 +102,7 @@ const ManageUsers = () => {
         <Loading />
       ) : (
         <>
+          {/* Users Table */}
           <div className="overflow-x-auto">
             <table className="table w-full">
               <thead>
@@ -71,27 +111,37 @@ const ManageUsers = () => {
                   <th>Name</th>
                   <th>Email</th>
                   <th>Role</th>
-                  <th>Created At</th>
+                  <th>Last Login</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
-                {users.map((user, idx) => (
-                  <tr key={user._id}>
+                {users.map((u, idx) => (
+                  <tr key={u._id}>
                     <td>{(currentPage - 1) * usersPerPage + idx + 1}</td>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
+                    <td>{u.name}</td>
+                    <td>{u.email}</td>
                     <td className="text-green-700 font-bold italic">
-                      {user.role || 'tourist'}
+                      {u.role || 'tourist'}
                     </td>
-                    <td>{new Date(user.createdAt).toLocaleDateString()}</td>
-                  </tr>
+                    <td>
+                      {u.lastLogout
+                        ? new Date(u.lastLogout).toLocaleString()
+                        : 'Never'}
+                    </td>
+                   <td>
+                  <span className={`badge ${u.isActive ? 'badge-success' : 'badge-error'}`}>
+                    {u.isActive ? 'Active' : 'Offline'}
+                  </span>
+                </td>
+                          </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
           {/* Pagination Controls */}
-          <div className="flex justify-center mt-6 gap-2">
+          <div className="flex justify-center mt-6 gap-2 flex-wrap">
             <button
               className="btn btn-sm"
               disabled={currentPage === 1}
@@ -103,7 +153,9 @@ const ManageUsers = () => {
             {[...Array(totalPages).keys()].map((page) => (
               <button
                 key={page + 1}
-                className={`btn btn-sm ${currentPage === page + 1 ? 'btn-primary' : 'btn-outline'}`}
+                className={`btn btn-sm ${
+                  currentPage === page + 1 ? 'btn-primary' : 'btn-outline'
+                }`}
                 onClick={() => setCurrentPage(page + 1)}
               >
                 {page + 1}

@@ -4,19 +4,22 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import GoogleLogIn from './GoogleLogIn';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
+import useUserActivity from '../../hooks/useUserActivity';
 
 const LogIn = () => {
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const { signIn, resetPassword } = useAuth();
+  const { user,signIn, resetPassword } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || '/';
+ useUserActivity(user?.email);
 
   const onSubmitt = (data) => {
     signIn(data.email, data.password)
