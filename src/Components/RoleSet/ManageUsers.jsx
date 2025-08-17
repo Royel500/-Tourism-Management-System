@@ -111,7 +111,7 @@ const ManageUsers = () => {
                   <th>Name</th>
                   <th>Email</th>
                   <th>Role</th>
-                  <th>Last Login</th>
+                  <th>Last LogOut</th>
                   <th>Status</th>
                 </tr>
               </thead>

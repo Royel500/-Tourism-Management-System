@@ -17,7 +17,7 @@ Aos.init();
 const queryClient = new QueryClient();
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <div className="urbanist">
+    <div className="roboto">
     <QueryClientProvider client={queryClient}>
        <AuthProvider> 
     <RouterProvider

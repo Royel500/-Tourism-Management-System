@@ -134,7 +134,7 @@ import AdminRoute from './AdminRoute';
       },
     {
       path:'manageUsers',
-      element:<ManageUsers></ManageUsers>
+      element:<AdminRoute><ManageUsers/>  </AdminRoute>
     },
     {
       path:'manageProfile',
