@@ -1,4 +1,3 @@
-// ThemeContext.jsx
 import React, { createContext, useState, useEffect } from 'react';
 
 export const ThemeContext = createContext();
@@ -6,6 +5,7 @@ export const ThemeContext = createContext();
 export const ThemeProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(false);
 
+  // Load saved theme on mount
   useEffect(() => {
     const saved = localStorage.getItem('theme');
     if (saved === 'dark') {
@@ -29,8 +29,8 @@ export const ThemeProvider = ({ children }) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
+    <ThemeContext value={{ darkMode, toggleDarkMode }}>
       {children}
-    </ThemeContext.Provider>
+    </ThemeContext>
   );
 };
