@@ -5,7 +5,7 @@ const ExtraSections = () => {
     <div>
 
       {/* 🌍 Top Destinations Section */}
-      <section className="px-6 py-10 bg-gradient-to-r from-sky-100 to-emerald-100">
+      <section className="px-6 py-10 ">
         <h2 className="text-3xl font-bold text-center mb-6">Top Destinations</h2>
         <div className="grid md:grid-cols-3 gap-6">
           {/* Sample Cards */}

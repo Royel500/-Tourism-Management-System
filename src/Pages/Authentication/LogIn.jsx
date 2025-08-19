@@ -5,6 +5,8 @@ import GoogleLogIn from './GoogleLogIn';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import useUserActivity from '../../hooks/useUserActivity';
+import confetti from "canvas-confetti";
+
 
 const LogIn = () => {
 
@@ -21,25 +23,69 @@ const LogIn = () => {
   const from = location.state?.from || '/';
  useUserActivity(user?.email);
 
-  const onSubmitt = (data) => {
-    signIn(data.email, data.password)
-      .then(() => {
-        Swal.fire({
-          title: 'You are Successfully Logged In!',
-          icon: 'success',
-          timer: 1500,
-          showConfirmButton: false,
-        });
-        navigate(from);
-      })
-      .catch((err) => {
-        Swal.fire({
-          title: 'Error',
-          text: err.message,
-          icon: 'error',
-        });
+const onSubmitt = (data) => {
+  signIn(data.email, data.password)
+    .then(() => {
+      Swal.fire({
+        title: 'You are Successfully Logged In!',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false,
+        willOpen: () => {
+          // Flower/confetti animation
+          const duration = 1500; // match SweetAlert timer
+          const end = Date.now() + duration;
+
+          (function frame() {
+            confetti({
+              particleCount: 7,
+              angle: 60,
+              spread: 55,
+              origin: { x: 0 },
+              shapes: ['circle'],
+              colors: ['#ff69b4', '#ffb6c1', '#ffd700'],
+            });
+            confetti({
+              particleCount: 7,
+              angle: 120,
+              spread: 55,
+              origin: { x: 1 },
+              shapes: ['circle'],
+              colors: ['#ff69b4', '#ffb6c1', '#ffd700'],
+            });
+
+            if (Date.now() < end) {
+              requestAnimationFrame(frame);
+            }
+          })();
+        },
       });
-  };
+
+      // Speak a voice message
+      const message = new SpeechSynthesisUtterance(" welcome again to the website!");
+      const voices = window.speechSynthesis.getVoices();
+      const femaleVoice = voices.find(
+        (voice) =>
+          voice.name.toLowerCase().includes("female") ||
+          voice.name.toLowerCase().includes("zira")
+      );
+      if (femaleVoice) message.voice = femaleVoice;
+      message.rate = 0.7;
+      message.pitch = 1;
+      message.volume = 0.8;
+      window.speechSynthesis.speak(message);
+
+      navigate(from);
+    })
+    .catch((err) => {
+      Swal.fire({
+        title: 'Error',
+        text: err.message,
+        icon: 'error',
+      });
+    });
+};
+
 
   const handleForgotPassword = async () => {
     const { value: email } = await Swal.fire({

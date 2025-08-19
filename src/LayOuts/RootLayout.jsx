@@ -6,8 +6,13 @@ import Footer from '../ShearCom/Footer';
 const RootLayout = () => {
     return (
         <div>
+            <div className='sticky top-0 z-999'>
             <Navbar></Navbar>
-            <Outlet></Outlet>
+            </div>
+            
+          <main className=""> {/* if navbar is fixed */}
+    <Outlet />
+  </main>
             <Footer></Footer>
         </div>
     );

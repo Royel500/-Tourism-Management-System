@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosSecure = axios.create({
    
-    baseURL: `http://localhost:3500`
+    baseURL: `https://assignment-12-server-seven-orcin.vercel.app`
 });
 
 const useAxiosecure = () => {

@@ -45,43 +45,91 @@ const Register = () => {
 
 
   //  Form submit handler
-  const onSubmit = async (data) => {
-    const { email, password, displayName } = data;
+const onSubmit = async (data) => {
+  const { email, password, displayName } = data;
 
-    try {
-      const res = await createUser(email, password);
-      const loggedUser = res.user;
+  try {
+    const res = await createUser(email, password);
+    const loggedUser = res.user;
 
-      //  Update Firebase profile
-      await updateProfile(loggedUser, {
-        displayName,
-        photoURL: photoURL || '',
-      });
+    // Update Firebase profile
+    await updateProfile(loggedUser, {
+      displayName,
+      photoURL: photoURL || '',
+    });
 
+    // Save user to MongoDB backend
+    const userInfo = {
+      uid: loggedUser.uid,
+      name: displayName,
+      email,
+      photoURL: photoURL || '',
+      role: 'tourist',
+      createdAt: new Date().toISOString(),
+    };
 
+    const userRes = await axiosIns.post('/api/users', userInfo);
 
-      //  Save user to MongoDB backend
-      const userInfo = {
-        uid: loggedUser.uid,
-        name: displayName,
-        email,
-        photoURL: photoURL || '',
-        role: 'tourist',
-        createdAt: new Date().toISOString(),
-      };
+    // SweetAlert with flower/confetti animation
+    Swal.fire({
+      title: "Account Created!",
+      text: "Welcome to the platform!",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1500,
+      willOpen: () => {
+        const duration = 1500; // match SweetAlert timer
+        const end = Date.now() + duration;
 
-      const userRes = await axiosIns.post('/api/users', userInfo);
-      
-      Swal.fire("Account Created!", "Welcome to the platform!", "success");
-      navigate('/');
-    } catch (err) {
-      console.error(err);
-      
-      Swal.fire("Registration Failed", err.message || "Something went wrong", "error");
-      
-    }
-    useUserActivity(user?.email);
-  };
+        (function frame() {
+          confetti({
+            particleCount: 7,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 },
+            shapes: ['circle'],
+            colors: ['#ff69b4', '#ffb6c1', '#ffd700'],
+          });
+          confetti({
+            particleCount: 7,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 },
+            shapes: ['circle'],
+            colors: ['#ff69b4', '#ffb6c1', '#ffd700'],
+          });
+
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        })();
+      },
+    });
+
+    // Speak eco-friendly voice message
+    const message = new SpeechSynthesisUtterance(" Congratulation ,Sir welcome to the website!");
+    const voices = window.speechSynthesis.getVoices();
+    const femaleVoice = voices.find(
+      (voice) =>
+        voice.name.toLowerCase().includes("female") ||
+        voice.name.toLowerCase().includes("zira")
+    );
+    if (femaleVoice) message.voice = femaleVoice;
+    message.rate = 0.8;   // slightly slower for calmness
+    message.pitch = 1.3;  // gentle, pleasant pitch
+    message.volume = 0.8; // softer voice
+    window.speechSynthesis.speak(message);
+
+    navigate('/');
+  } catch (err) {
+    console.error(err);
+
+    Swal.fire("Registration Failed", err.message || "Something went wrong", "error");
+  }
+
+  useUserActivity(user?.email);
+};
+
 
   return (
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl mx-auto">

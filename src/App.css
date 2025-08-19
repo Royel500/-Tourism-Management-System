@@ -6,7 +6,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .roboto{
   font-family: "Roboto Condensed", sans-serif;
   font-optical-sizing: auto;
@@ -14,3 +13,18 @@
   font-size: auto;
   font-style: normal;
 }
+:root {
+  --bg-color: #ffffff; /* light background */
+  --text-color: #111827; /* light text */
+}
+
+/* Dark mode override backgrounds */
+.dark * {
+  background-color: black !important ; /* or  */
+  color: white !important;
+}
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+

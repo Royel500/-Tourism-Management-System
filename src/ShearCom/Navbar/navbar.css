@@ -1,7 +1,7 @@
-.active{
-    text-decoration: underline;
-    color: crimson;
-    background-color: aquamarine;
-    
-    font-weight: bold;
+.active {
+  color: rgb(253, 253, 253);
+  background-color:rgb(75, 75, 138);
+  font-weight: bold;
+  border-radius: 9999px;    
+  transition: all 0.3s ease;
 }

@@ -7,7 +7,7 @@ const RMarquee = () => {
     <div >
    
       <Marquee speed={60} pauseOnHover={true} gradient={false}
-       className=" bg-green-500 py-3 my-1"> 
+       className=" bg-base-200 py-3 my-1"> 
        <p>  🌍 Welcome to our Tourism Management System — Your gateway to seamless trip planning, 
         destination discovery, and unforgettable travel experiences! ✈️🗺️</p>
       </Marquee>
