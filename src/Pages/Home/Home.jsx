@@ -7,6 +7,7 @@ import Banar from './Banar';
 // import TravelTabs from './TravelTabs';
 import TravelTabs from './TravelTabs';
 import TouristStories from './TouristStories';
+import Animation from '../../Components/AdditionalSection/Animation';
 
 const Home = () => {
     return (
@@ -16,6 +17,7 @@ const Home = () => {
         <Overview></Overview>
           <TravelTabs></TravelTabs>
           <TouristStories></TouristStories>
+          <Animation></Animation>
         <ExtraSections></ExtraSections>
             </div>
     );

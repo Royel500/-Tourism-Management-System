@@ -6,7 +6,7 @@ import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import useUserActivity from '../../hooks/useUserActivity';
 import confetti from "canvas-confetti";
-
+import './style.css'
 
 const LogIn = () => {
 
@@ -61,13 +61,15 @@ const onSubmitt = (data) => {
         },
       });
 
-      // Speak a voice message
-      const message = new SpeechSynthesisUtterance(" welcome again to the website!");
+      // Optional: voice message
+      const message = new SpeechSynthesisUtterance(
+        'Welcome back to the website!'
+      );
       const voices = window.speechSynthesis.getVoices();
       const femaleVoice = voices.find(
         (voice) =>
-          voice.name.toLowerCase().includes("female") ||
-          voice.name.toLowerCase().includes("zira")
+          voice.name.toLowerCase().includes('female') 
+          
       );
       if (femaleVoice) message.voice = femaleVoice;
       message.rate = 0.7;
@@ -75,7 +77,8 @@ const onSubmitt = (data) => {
       message.volume = 0.8;
       window.speechSynthesis.speak(message);
 
-      navigate(from);
+      // Navigate after SweetAlert closes
+      setTimeout(() => navigate(from), 1500);
     })
     .catch((err) => {
       Swal.fire({
@@ -108,22 +111,25 @@ const onSubmitt = (data) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
+     <div className="min-h-screen animated-border-container flex items-center justify-center p-4">
+        <div className="animated-border-container card w-full max-w-sm mx-auto">
         <form onSubmit={handleSubmit(onSubmitt)}>
           <div className="card-body">
             <h1 className="text-2xl text-center font-bold mb-4">Please Log In to Your Account</h1>
             <fieldset className="fieldset space-y-2">
-              <label className="label">Email</label>
+              <div className='input-group space-y-3'>
+
+             
+            
               <input
                 type="email"
                 {...register('email', { required: 'Email is required' })}
-                className="input input-bordered w-full"
+                className="input form-input input-has-icon input-bordered w-full"
                 placeholder="Email"
               />
               {errors.email && <p className="text-red-600">{errors.email.message}</p>}
 
-              <label className="label">Password</label>
+              
               <input
                 type="password"
                 {...register('password', {
@@ -133,7 +139,7 @@ const onSubmitt = (data) => {
                     message: 'Password must be at least 6 characters',
                   },
                 })}
-                className="input input-bordered w-full"
+                className="input form-input input-has-icon input-bordered w-full"
                 placeholder="Password"
               />
               {errors.password && <p className="text-red-600">{errors.password.message}</p>}
@@ -148,7 +154,7 @@ const onSubmitt = (data) => {
                 </button>
               </div>
 
-              <button type="submit" className="btn btn-neutral mt-4 w-full">
+              <button type="submit" className="btn live-button my-5 btn-neutral mt-4 w-full">
                 Login
               </button>
               <p className="text-center">
@@ -157,6 +163,7 @@ const onSubmitt = (data) => {
                   <span className="text-fuchsia-800 font-bold">Register Now</span>
                 </NavLink>
               </p>
+               </div>
             </fieldset>
           </div>
         </form>
