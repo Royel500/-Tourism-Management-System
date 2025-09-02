@@ -27,7 +27,7 @@ const Overview = () => {
   </p>
 </motion.div>
 
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <iframe
           width="560"
           height="315"
@@ -37,7 +37,7 @@ const Overview = () => {
           allowFullScreen
           className="rounded shadow-lg"
         ></iframe>
-      </div>
+      </div> */}
     </section>
   );
 };
